@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "570039445202",
+    "firebase_url": "https://wishhub-999b4.firebaseio.com",
+    "project_id": "wishhub-999b4",
+    "storage_bucket": "wishhub-999b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570039445202:android:e4b88e1f91fe7666",
+        "android_client_info": {
+          "package_name": "com.example.wishhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "570039445202-u0l1kk44tt95499bvusr16356u0rj3pt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wishhub",
+            "certificate_hash": "e5e12e515fa1087b5b9415f9786acf1e45792149"
+          }
+        },
+        {
+          "client_id": "570039445202-e37hp9l9icmeqt5lvp9387jhc225394g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5easbiCBdSIYkKTBHpgxhR6d1iNYXPAY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "570039445202-e37hp9l9icmeqt5lvp9387jhc225394g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
