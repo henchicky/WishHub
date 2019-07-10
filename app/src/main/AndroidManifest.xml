@@ -17,10 +17,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomePage.Home"></activity>
-        <activity android:name=".ChatSystem.ChatRoom" />
-        <activity android:name=".ChatSystem.Chat" />
-        <activity android:name=".NavigationPageToBeDelete" />
+        <activity
+            android:name=".HomePage.Home"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ChatSystem.ChatRoom"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".ChatSystem.Chat"/>
+        <activity
+            android:name=".ChatSystem.Chat"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".NavigationPageToBeDelete"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Authentication.RegisterActivity"
             android:parentActivityName=".Authentication.Login"
@@ -30,7 +39,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Authentication.ForgetPassword"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Authentication.RegisterActivity"/>
         <activity
             android:name=".Authentication.Login"
             android:screenOrientation="portrait">
