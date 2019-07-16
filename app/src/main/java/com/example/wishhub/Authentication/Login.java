@@ -21,7 +21,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
+public class Login extends AppCompatActivity {
 
     private static final String TAG = "Login Activity";
     private TextInputLayout texttEmail, texttPassword;
@@ -44,22 +44,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         ettEmail = findViewById(R.id.etsEmail);
         ettPassword = findViewById(R.id.etsPassword);
         login = findViewById(R.id.loginBtn);
-        createAccount = findViewById(R.id.createAccountBtn);
         progressBar = findViewById(R.id.progressBar);
         forgetPassword = findViewById(R.id.forgetPassword);
 
-        login.setOnClickListener(this);
-        createAccount.setOnClickListener(this);
-        forgetPassword.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.createAccountBtn:
-                startActivity(new Intent(this, RegisterActivity.class));
-                break;
-            case R.id.loginBtn:
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 progressBar.setVisibility(View.INVISIBLE);
                 final String email = ettEmail.getText().toString().trim();
                 final String password = ettPassword.getText().toString().trim();
@@ -80,11 +70,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     texttPassword.setError(null);
                     signIn(email, password);
                 }
-                break;
-            case R.id.forgetPassword:
-                Intent intent = new Intent(this, ForgetPassword.class);
+            }
+        });
+
+        forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ForgetPassword.class);
                 startActivity(intent);
-        }
+            }
+        });
     }
 
     private void signIn(String email, String password) {
@@ -96,7 +91,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     Toast.makeText(getApplicationContext(), "Welcome ", Toast.LENGTH_SHORT).show();
                     login.setVisibility(View.INVISIBLE);
-                    createAccount.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
                     Intent intent = new Intent(getApplicationContext(), NavigationPageToBeDelete.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //clear everything before

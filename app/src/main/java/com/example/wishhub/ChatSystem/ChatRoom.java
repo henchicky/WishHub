@@ -13,8 +13,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wishhub.Authentication.User;
+import com.example.wishhub.Notification.APIService;
+import com.example.wishhub.Notification.Client;
+import com.example.wishhub.Notification.Data;
+import com.example.wishhub.Notification.MyResponse;
+import com.example.wishhub.Notification.Sender;
+import com.example.wishhub.Notification.Token;
 import com.example.wishhub.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,6 +29,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
@@ -30,6 +38,10 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChatRoom extends AppCompatActivity {
 
@@ -43,6 +55,9 @@ public class ChatRoom extends AppCompatActivity {
     private FirebaseUser fuser;
     private TextView userChat, statusReport;
     private RecyclerView recyclerView;
+    private APIService apiService;
+    private DatabaseReference reference;
+    boolean notify = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,16 +76,19 @@ public class ChatRoom extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         name = getIntent().getExtras().getString("user_name");
 
+        apiService = Client.getClient("https://fcm.google.apis.com/").create(APIService.class);
+
         root = FirebaseDatabase.getInstance().getReference();
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                notify = true;
                 if (!text_send.getText().toString().equals("")) {
                     Map<String, Object> map = new HashMap<>();
 
@@ -82,6 +100,25 @@ public class ChatRoom extends AppCompatActivity {
                     root.child("Chats").push().setValue(map2);
                     text_send.getText().clear();
                 }
+            }
+        });
+
+        final String msg = text_send.getText().toString();
+
+        reference = FirebaseDatabase.getInstance().getReference("user_names").child(fuser.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                if (notify) {
+                    sendNotification(name, user.getName(), msg);
+                }
+                notify = false;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 
@@ -176,5 +213,43 @@ public class ChatRoom extends AppCompatActivity {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    private void sendNotification(String receiver, final String username, final String message) {
+        DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query = tokens.orderByKey().equalTo(receiver);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    Token token = snapshot.getValue(Token.class);
+                    Data data = new Data(fuser.getUid(), R.mipmap.ic_launcher, username + ": " + message, "New Message", name);
+
+                    Sender sender = new Sender (data, token.getToken());
+
+                    apiService.sendNotification(sender)
+                            .enqueue(new Callback<MyResponse>() {
+                                @Override
+                                public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                                    if (response.code() == 200) {
+                                        if (response.body().success != 1) {
+                                            Toast.makeText(ChatRoom.this, "Failed!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<MyResponse> call, Throwable t) {
+
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

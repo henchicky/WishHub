@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.wishhub.Authentication.User;
+import com.example.wishhub.Notification.Token;
 import com.example.wishhub.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +49,7 @@ public class Chat extends AppCompatActivity implements UserAdapter.onNoteListene
 
         final RecyclerView messageList = findViewById(R.id.messageList);
         messageList.setHasFixedSize(true);
-        messageList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        messageList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         context = this;
 
         root = FirebaseDatabase.getInstance().getReference("users_names");
@@ -72,6 +74,8 @@ public class Chat extends AppCompatActivity implements UserAdapter.onNoteListene
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
+        updateToken(FirebaseInstanceId.getInstance().getToken());
     }
 
     @Override
@@ -80,5 +84,11 @@ public class Chat extends AppCompatActivity implements UserAdapter.onNoteListene
         Intent intent = new Intent(this, ChatRoom.class);
         intent.putExtra("user_name", chosenUser.getId());
         startActivity(intent);
+    }
+
+    private void updateToken(String token) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token token1 = new Token(token);
+        reference.child(firebaseUser.getUid()).setValue(token1);
     }
 }

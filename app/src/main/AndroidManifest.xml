@@ -18,38 +18,62 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".SplashScreen.SplashScreen"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".HomePage.Home"
-            android:screenOrientation="portrait"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ChatSystem.ChatRoom"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".ChatSystem.Chat"/>
+            android:parentActivityName=".ChatSystem.Chat"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ChatSystem.Chat"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NavigationPageToBeDelete"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Authentication.RegisterActivity"
-            android:parentActivityName=".Authentication.Login"
+            android:parentActivityName=".SplashScreen.SplashScreen"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Authentication.ForgetPasswordPrompt"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Authentication.ForgetPassword"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Authentication.RegisterActivity"/>
+            android:parentActivityName=".Authentication.RegisterActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Authentication.Login"
+            android:parentActivityName=".SplashScreen.SplashScreen"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
+        <service
+            android:name=".Notification.MyFirebaseIdService"
+            android:permission="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".Notification.MyFirebaseMessaging"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

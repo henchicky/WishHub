@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "570039445202-gepdrhestuqh4a0jcbrt9urnub7opvu2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wishhub",
+            "certificate_hash": "76ec0552deaa8edc9ffea1576e36fa9aafce0593"
+          }
+        },
+        {
           "client_id": "570039445202-u0l1kk44tt95499bvusr16356u0rj3pt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
