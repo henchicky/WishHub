@@ -47,9 +47,9 @@ public class SplashScreen extends AppCompatActivity {
 
         Integer[] colors_temp = {
                 getResources().getColor(R.color.color1),
-                getResources().getColor(R.color.color2),
-                getResources().getColor(R.color.color3),
-                getResources().getColor(R.color.color4)
+                getResources().getColor(R.color.color1),
+                getResources().getColor(R.color.color1),
+                getResources().getColor(R.color.color1)
         };
 
         colors = colors_temp;

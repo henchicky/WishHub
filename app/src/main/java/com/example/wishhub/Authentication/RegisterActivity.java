@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.wishhub.HomePage.Home;
 import com.example.wishhub.NavigationPageToBeDelete;
 import com.example.wishhub.R;
 import com.google.android.gms.tasks.Continuation;
@@ -141,7 +142,7 @@ public class RegisterActivity extends AppCompatActivity {
                 } else {
                     signUpBtn.setVisibility(View.INVISIBLE);
                     loadingProgress.setVisibility(View.VISIBLE);
-                    Toast.makeText(getApplicationContext(), "email- " + email + " password " + password2, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "email- " + email + " password " + password2, Toast.LENGTH_SHORT).show();
                     mAuth.createUserWithEmailAndPassword(email, password2).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -234,7 +235,7 @@ public class RegisterActivity extends AppCompatActivity {
                         loadingProgress.setProgress((int) progress);
                     }
                 });
-        startActivity(new Intent(getApplicationContext(), NavigationPageToBeDelete.class));
+        startActivity(new Intent(getApplicationContext(), Home.class));
     }
 
 

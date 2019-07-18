@@ -20,6 +20,11 @@
         <activity
             android:name=".SplashScreen.SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".HomePage.Home"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -28,15 +33,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomePage.Home"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ChatSystem.ChatRoom"
             android:parentActivityName=".ChatSystem.Chat"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ChatSystem.Chat"
+            android:parentActivityName=".HomePage.Home"
             android:screenOrientation="portrait" />
         <activity
             android:name=".NavigationPageToBeDelete"

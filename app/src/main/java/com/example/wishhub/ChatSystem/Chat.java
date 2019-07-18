@@ -2,6 +2,7 @@ package com.example.wishhub.ChatSystem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,11 +38,17 @@ public class Chat extends AppCompatActivity implements UserAdapter.onNoteListene
     private TextView profileName;
     private FirebaseUser firebaseUser;
     private Context context;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("INbox");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         profileImage = findViewById(R.id.profile_image);

@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wishhub.HomePage.Home;
 import com.example.wishhub.NavigationPageToBeDelete;
 import com.example.wishhub.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -92,7 +93,7 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Welcome ", Toast.LENGTH_SHORT).show();
                     login.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
-                    Intent intent = new Intent(getApplicationContext(), NavigationPageToBeDelete.class);
+                    Intent intent = new Intent(getApplicationContext(), Home.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //clear everything before
                     startActivity(intent);
                 } else {
