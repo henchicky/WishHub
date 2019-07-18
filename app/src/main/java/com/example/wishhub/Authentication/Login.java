@@ -67,6 +67,8 @@ public class Login extends AppCompatActivity {
                         texttPassword.setError(null);
                     }
                 } else {
+                    progressBar.setVisibility(View.VISIBLE);
+                    login.setVisibility(View.INVISIBLE);
                     texttEmail.setError(null);
                     texttPassword.setError(null);
                     signIn(email, password);
@@ -90,15 +92,14 @@ public class Login extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     finish();
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    Toast.makeText(getApplicationContext(), "Welcome ", Toast.LENGTH_SHORT).show();
-                    login.setVisibility(View.INVISIBLE);
-                    progressBar.setVisibility(View.VISIBLE);
+                    Toast.makeText(getApplicationContext(), "Welcome back!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), Home.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //clear everything before
                     startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Please try again - " + task.getException(), Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.INVISIBLE);
+                    login.setVisibility(View.VISIBLE);
                 }
             }
         });
