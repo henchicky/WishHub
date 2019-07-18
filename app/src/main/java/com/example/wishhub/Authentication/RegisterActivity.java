@@ -56,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
     ImageView ImgUserPhoto;
     private static final int PReqcode = 1;
     static int REQUESTCODE = 1;
-    Uri pickedImgUri = Uri.parse("android.resource://com.example.blogapp/" + R.drawable.userphoto);
+    Uri pickedImgUri = Uri.parse("android.resource://com.example.wishhub/" + R.drawable.userphoto);
     private EditText etName, etEmail, etPassword, etPassword2;
     private TextInputLayout editTextEmail, editTextPassword, editTextPassword2, editTextName;
     private ProgressBar loadingProgress;
@@ -108,7 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = editTextName.getEditText().getText().toString().trim();
+                final String name = editTextName.getEditText().getText().toString().trim();
                 final String email = editTextEmail.getEditText().getText().toString().trim();
                 String password = editTextPassword.getEditText().getText().toString().trim();
                 final String password2 = editTextPassword2.getEditText().getText().toString().trim();
@@ -148,12 +148,14 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 finish();
+                                Toast.makeText(RegisterActivity.this, "Welcome " + name, Toast.LENGTH_SHORT).show();
                                 updateUserInfo(editTextName.getEditText(), pickedImgUri, mAuth.getCurrentUser());
                             } else {
                                 if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                     Toast.makeText(RegisterActivity.this, "You are already registered", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    signUpBtn.setVisibility(View.VISIBLE);
                                 }
                             }
                         }
@@ -162,6 +164,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public String getFileExtension(Uri uri) {
         ContentResolver cR = getContentResolver();
@@ -225,7 +228,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this, e.getMessage() + "from database", Toast.LENGTH_LONG).show();
                     }
                 })
                 .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
