@@ -1,24 +1,13 @@
 package com.example.wishhub.Authentication;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ContentResolver;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -27,17 +16,12 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.wishhub.HomePage.Home;
-import com.example.wishhub.NavigationPageToBeDelete;
+import com.example.wishhub.HomePage.HomePage;
 import com.example.wishhub.R;
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
@@ -46,26 +30,19 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    ImageView ImgUserPhoto;
     private static final int PReqcode = 1;
     static int REQUESTCODE = 1;
-    Uri pickedImgUri = Uri.parse("android.resource://com.example.wishhub/" + R.drawable.userphoto);
+    //Uri pickedImgUri = Uri.parse("android.resource://com.example.wishhub/" + R.drawable.userphoto);
     private EditText etName, etEmail, etPassword, etPassword2;
     private TextInputLayout editTextEmail, editTextPassword, editTextPassword2, editTextName;
     private ProgressBar loadingProgress;
     private FirebaseAuth mAuth;
     private Button signUpBtn;
-    private StorageReference mStorage;
     private DatabaseReference dStorage;
     private static final String TAG = RegisterActivity.class.getSimpleName();
-    private String imageLink = "https://firebasestorage.googleapis.com/v0/b/wishhub-999b4.appspot.com/o/users_photos%2Fuserphoto.png?alt=media&token=b91b1a59-eeb2-401b-a888-b739eb2c9514";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +57,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         loadingProgress = findViewById(R.id.progressBar);
         loadingProgress.setVisibility(View.INVISIBLE);
-        ImgUserPhoto = findViewById(R.id.regUserPhoto);
 
+        /*
+        ImgUserPhoto = findViewById(R.id.regUserPhoto);
         ImgUserPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
                     openGallery();
                 }
             }
-        });
+        });*/
 
         editTextEmail = findViewById(R.id.regMail);
         editTextPassword = findViewById(R.id.regPassword);
@@ -149,7 +127,7 @@ public class RegisterActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 finish();
                                 Toast.makeText(RegisterActivity.this, "Welcome " + name, Toast.LENGTH_SHORT).show();
-                                updateUserInfo(editTextName.getEditText(), pickedImgUri, mAuth.getCurrentUser());
+                                updateUserInfo(editTextName.getEditText(), mAuth.getCurrentUser());
                             } else {
                                 if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                     Toast.makeText(RegisterActivity.this, "You are already registered", Toast.LENGTH_SHORT).show();
@@ -173,15 +151,15 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     //update user photo and name
-    private void updateUserInfo(final EditText editTextName, final Uri pickedImgUri, final FirebaseUser currentUser) {
+    private void updateUserInfo(final EditText editTextName, final FirebaseUser currentUser) {
         //To upload user photo to Firebase Storage in "users_photo" node
-        mStorage = FirebaseStorage.getInstance().getReference().child("users_photos");
+        //mStorage = FirebaseStorage.getInstance().getReference().child("users_photos");
 
         //To store the names of the users to Firebase Database in "users_names" node
         dStorage = FirebaseDatabase.getInstance().getReference().child("users_names");
 
         //to give the name to the user photos (tag with unique key to retrieve data)
-        final StorageReference fileReference;
+        /*final StorageReference fileReference;
         if (getFileExtension(pickedImgUri) == null) {
             fileReference = mStorage.child(System.currentTimeMillis() + ".png");
         } else {
@@ -238,10 +216,17 @@ public class RegisterActivity extends AppCompatActivity {
                         loadingProgress.setProgress((int) progress);
                     }
                 });
-        startActivity(new Intent(getApplicationContext(), Home.class));
+        */
+        User user = new User(currentUser.getUid(), "https://firebasestorage.googleapis.com/v0/b/blogapp-72a37.appspot.com/o/users_photos%2F1559635064314.null?alt=media&token=8c25427f-bd7f-49b9-8d70-4ac396cac0af",
+                etName.getText().toString(), etEmail.getText().toString(), "");
+
+        //firebase generates unique key(how to retrieve afterwards)
+        dStorage.child(mAuth.getCurrentUser().getUid()).setValue(user);
+        startActivity(new Intent(getApplicationContext(), HomePage.class));
     }
 
 
+    /*
     private void checkAndRequestForPermission(final Context context) {
         /*
         if (ContextCompat.checkSelfPermission(RegisterActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) !=
@@ -253,7 +238,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         } else {
             openGallery();
-        } */
+        }
         if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(
@@ -266,11 +251,11 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             openGallery();
         }
-    }
+    }*/
 
+    /*
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case PReqcode:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -319,7 +304,7 @@ public class RegisterActivity extends AppCompatActivity {
             //pass the image back into the image
             ImgUserPhoto.setImageURI(pickedImgUri);
         }
-    }
+    }*/
 
     private class MyTextWatcher implements TextWatcher {
 

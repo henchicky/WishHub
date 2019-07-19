@@ -61,7 +61,7 @@
 
     <include
         android:id="@+id/bottomtype"
-        layout="@layout/message_area"
+        layout="@layout/chat_sending_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />

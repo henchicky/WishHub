@@ -16,17 +16,17 @@ import com.example.wishhub.ChatSystem.Chat;
 import com.example.wishhub.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Home extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class HomePage extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "MainActivity";
 
     BottomNavigationView bottomNavigationView;
 
-    Account accountFragment = new Account();
-    Favourite favouriteFragment = new Favourite();
-    Trade tradeFragment = new Trade();
-    Likes likesFragment = new Likes();
-    MyProfile myProfileFragment = new MyProfile();
+    AccountFragment accountFragment = new AccountFragment();
+    FavouriteFragment favouriteFragment = new FavouriteFragment();
+    TradeFragment tradeFragment = new TradeFragment();
+    LikesFragment likesFragment = new LikesFragment();
+    MyProfileFragment myProfileFragment = new MyProfileFragment();
 
     ImageButton chatButton;
 

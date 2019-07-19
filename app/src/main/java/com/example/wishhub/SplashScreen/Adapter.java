@@ -1,7 +1,6 @@
 package com.example.wishhub.SplashScreen;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.example.wishhub.Authentication.Login;
 import com.example.wishhub.R;
 import java.util.List;
 
@@ -41,7 +39,7 @@ public class Adapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.item, container, false);
+        View view = layoutInflater.inflate(R.layout.splashscrren_layout, container, false);
 
         ImageView imageView;
         TextView title, desc;
