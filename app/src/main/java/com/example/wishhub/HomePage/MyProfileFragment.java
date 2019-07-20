@@ -1,7 +1,6 @@
 package com.example.wishhub.HomePage;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,7 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.wishhub.R;
-import com.example.wishhub.SplashScreen.SplashScreen;
+import com.example.wishhub.SplashScreen.SplashScreenActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -38,7 +37,7 @@ public class MyProfileFragment extends Fragment {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(getActivity().getApplicationContext(), "Logged out successfully!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getActivity().getApplicationContext(), SplashScreen.class));
+                startActivity(new Intent(getActivity().getApplicationContext(), SplashScreenActivity.class));
             }
         });
 

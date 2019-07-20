@@ -9,9 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.example.wishhub.Authentication.ForgetPassword;
 import com.example.wishhub.Authentication.Login;
 import com.example.wishhub.Authentication.RegisterActivity;
 import com.example.wishhub.R;
@@ -19,7 +17,7 @@ import com.example.wishhub.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     Adapter adapter;
@@ -92,7 +90,7 @@ public class SplashScreen extends AppCompatActivity {
         enterLoginPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SplashScreen.this, Login.class));
+                startActivity(new Intent(SplashScreenActivity.this, Login.class));
             }
         });
 

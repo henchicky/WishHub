@@ -51,13 +51,6 @@ public class PostAdpapter extends RecyclerView.Adapter<PostAdpapter.ImageViewHol
                 .apply(new RequestOptions().placeholder(R.drawable.placeholder))
                 .into(holder.post_image);
 
-        if (post.getDescription().equals("")){
-            holder.description.setVisibility(View.GONE);
-        } else {
-            holder.description.setVisibility(View.VISIBLE);
-            holder.description.setText(post.getDescription());
-        }
-
         publisherInfo(holder.image_profile, holder.username, holder.publisher, post.getPublisher());
     }
 
@@ -79,19 +72,14 @@ public class PostAdpapter extends RecyclerView.Adapter<PostAdpapter.ImageViewHol
             username = itemView.findViewById(R.id.username);
             post_image = itemView.findViewById(R.id.post_image);
             like = itemView.findViewById(R.id.like);
-            comment = itemView.findViewById(R.id.comment);
-            save = itemView.findViewById(R.id.save);
-            likes = itemView.findViewById(R.id.likes);
             publisher = itemView.findViewById(R.id.publisher);
-            description = itemView.findViewById(R.id.description);
-            comments = itemView.findViewById(R.id.comments);
             more = itemView.findViewById(R.id.more);
         }
     }
 
     private void publisherInfo(final ImageView image_profile, final TextView username, final TextView publisher, final String userid){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
-                .child("Users").child(userid);
+                .child("users_names").child(userid);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override

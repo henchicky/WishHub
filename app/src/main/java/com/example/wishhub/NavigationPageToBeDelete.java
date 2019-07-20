@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.example.wishhub.Authentication.Login;
 import com.example.wishhub.ChatSystem.Chat;
-import com.example.wishhub.HomePage.HomePage;
+import com.example.wishhub.HomePage.HomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class NavigationPageToBeDelete extends AppCompatActivity {
@@ -43,7 +43,7 @@ public class NavigationPageToBeDelete extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), HomePage.class));
+                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
             }
         });
 

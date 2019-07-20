@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.wishhub.HomePage.HomePage;
+import com.example.wishhub.HomePage.HomeActivity;
 import com.example.wishhub.NavigationPageToBeDelete;
 import com.example.wishhub.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -93,7 +93,7 @@ public class Login extends AppCompatActivity {
                     finish();
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     Toast.makeText(getApplicationContext(), "Welcome back!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), HomePage.class);
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //clear everything before
                     startActivity(intent);
                 } else {

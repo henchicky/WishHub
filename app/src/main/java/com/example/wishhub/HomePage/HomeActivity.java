@@ -13,10 +13,11 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.wishhub.ChatSystem.Chat;
+import com.example.wishhub.PostActivity;
 import com.example.wishhub.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class HomePage extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "MainActivity";
 
@@ -38,7 +39,7 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        bottomNavigationView.setSelectedItemId(R.id.navigation_trade);
+        bottomNavigationView.setSelectedItemId(R.id.navigation_myprofile);
 
         chatButton = findViewById(R.id.chatButton);
         chatButton.setOnTouchListener(new View.OnTouchListener() {
@@ -79,9 +80,9 @@ public class HomePage extends AppCompatActivity implements BottomNavigationView.
                 return true;
 
             case R.id.navigation_trade:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, tradeFragment).commit();
+                //getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, tradeFragment).commit();
+                startActivity(new Intent(HomeActivity.this, PostActivity.class));
                 return true;
-
             case R.id.navigation_likes:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, likesFragment).commit();
                 return true;

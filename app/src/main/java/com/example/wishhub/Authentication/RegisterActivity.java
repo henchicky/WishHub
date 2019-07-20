@@ -19,7 +19,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.wishhub.HomePage.HomePage;
+import com.example.wishhub.HomePage.HomeActivity;
 import com.example.wishhub.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -222,7 +222,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         //firebase generates unique key(how to retrieve afterwards)
         dStorage.child(mAuth.getCurrentUser().getUid()).setValue(user);
-        startActivity(new Intent(getApplicationContext(), HomePage.class));
+        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
     }
 
 
