@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wishhub.HomePage.HomeActivity;
-import com.example.wishhub.NavigationPageToBeDelete;
+import com.example.wishhub.Miscellaneous.NavigationPageToBeDelete;
 import com.example.wishhub.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

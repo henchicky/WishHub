@@ -9,7 +9,7 @@
     android:id="@+id/home_layout" >
 
     <!-- our toolbar -->
-    <androidx.appcompat.widget.Toolbar
+    <!--androidx.appcompat.widget.Toolbar
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
@@ -40,17 +40,16 @@
                 android:background="@drawable/ic_chat"
                 android:contentDescription="TODO" />
         </RelativeLayout>
-    </androidx.appcompat.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar-->
 
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

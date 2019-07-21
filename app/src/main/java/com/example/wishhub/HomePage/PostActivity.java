@@ -1,4 +1,4 @@
-package com.example.wishhub;
+package com.example.wishhub.HomePage;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,11 +17,13 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.wishhub.HomePage.HomeActivity;
+import com.example.wishhub.Miscellaneous.CurrencyEditText;
+import com.example.wishhub.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,6 +33,8 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class PostActivity extends AppCompatActivity {
@@ -46,6 +50,10 @@ public class PostActivity extends AppCompatActivity {
     CurrencyEditText price;
     Switch switch_condition;
     boolean item_condition = true;
+    TextInputLayout priceinput;
+    private Calendar calendar;
+    private SimpleDateFormat dateFormat;
+    private String date;
 
 
     @Override
@@ -72,6 +80,12 @@ public class PostActivity extends AppCompatActivity {
                 }
             }
         });
+
+        calendar = Calendar.getInstance();
+        dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        date = dateFormat.format(calendar.getTime());
+
+        priceinput = findViewById(R.id.priceinput);
 
         storageRef = FirebaseStorage.getInstance().getReference("posts");
 
@@ -102,6 +116,7 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void uploadImage_10(){
+
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setMessage("Posting");
         pd.show();
@@ -137,6 +152,7 @@ public class PostActivity extends AppCompatActivity {
                         hashMap.put("price", price.getText().toString());
                         hashMap.put("itemcondition", "" + item_condition);
                         hashMap.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        hashMap.put("uploaddate", date);
                         reference.child(postid).setValue(hashMap);
 
                         pd.dismiss();

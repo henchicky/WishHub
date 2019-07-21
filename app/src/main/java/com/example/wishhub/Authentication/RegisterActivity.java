@@ -31,6 +31,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private static final int PReqcode = 1;
@@ -43,6 +46,9 @@ public class RegisterActivity extends AppCompatActivity {
     private Button signUpBtn;
     private DatabaseReference dStorage;
     private static final String TAG = RegisterActivity.class.getSimpleName();
+    private Calendar calendar;
+    private SimpleDateFormat dateFormat;
+    private String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,8 +223,11 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
         */
+        calendar = Calendar.getInstance();
+        dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        date = dateFormat.format(calendar.getTime());
         User user = new User(currentUser.getUid(), "https://firebasestorage.googleapis.com/v0/b/blogapp-72a37.appspot.com/o/users_photos%2F1559635064314.null?alt=media&token=8c25427f-bd7f-49b9-8d70-4ac396cac0af",
-                etName.getText().toString(), etEmail.getText().toString(), "");
+                etName.getText().toString(), etEmail.getText().toString(), "", date);
 
         //firebase generates unique key(how to retrieve afterwards)
         dStorage.child(mAuth.getCurrentUser().getUid()).setValue(user);

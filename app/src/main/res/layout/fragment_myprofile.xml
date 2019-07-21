@@ -17,7 +17,7 @@
             android:src="@drawable/userphoto"/>
 
         <TextView
-            android:id="@+id/t1"
+            android:id="@+id/account_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nexusing"
@@ -26,20 +26,19 @@
             android:textStyle="bold"
             android:textSize="18dp"/>
         <TextView
-            android:id="@+id/t2"
+            android:id="@+id/joindate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Join Date"
-            android:layout_below="@+id/t1"
+            android:layout_below="@+id/account_name"
             android:padding="5dp"
-
             android:layout_marginTop="20dp"/>
         <TextView
             android:id="@+id/t3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Number of likes"
-            android:layout_below="@+id/t2"
+            android:layout_below="@+id/joindate"
             android:padding="5dp"/>
         <TextView
             android:id="@+id/t4"
@@ -54,18 +53,17 @@
             android:layout_height="wrap_content"
             android:text="Log out"
             android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@+id/shareButton"
+            android:layout_toEndOf="@+id/editPofile"
             android:id="@+id/logoutButton"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Share"
+            android:text="Edit Profile"
             android:layout_alignParentBottom="true"
-            android:id="@+id/shareButton"/>
+            android:id="@+id/editPofile"/>
 
     </RelativeLayout>
-    <!-- TODO: Update blank fragment layout -->
 
 
 </FrameLayout>

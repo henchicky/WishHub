@@ -5,15 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ImageButton;
 
-import com.example.wishhub.ChatSystem.Chat;
-import com.example.wishhub.PostActivity;
 import com.example.wishhub.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -39,32 +34,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        bottomNavigationView.setSelectedItemId(R.id.navigation_myprofile);
-
-        chatButton = findViewById(R.id.chatButton);
-        chatButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        ImageButton view = (ImageButton) v;
-                        view.getBackground().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-                        v.invalidate();
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP:
-                        startActivity(new Intent(getApplicationContext(), Chat.class));
-                    case MotionEvent.ACTION_CANCEL: {
-                        ImageButton view = (ImageButton) v;
-                        view.getBackground().clearColorFilter();
-                        view.invalidate();
-                        break;
-                    }
-                }
-                return true;
-            }
-        });
+        bottomNavigationView.setSelectedItemId(R.id.navigation_account);
     }
 
     @Override

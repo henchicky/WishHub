@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".PostActivity">
+    tools:context=".HomePage.PostActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/bar"
@@ -62,28 +62,50 @@
             android:src="@mipmap/ic_launcher"
             android:id="@+id/image_added"/>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:hint="Listing title"
-            android:id="@+id/title"
-            android:maxLines="1"/>
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="Listing Title"
+                android:id="@+id/title"
+                android:maxLines="1"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:hint="Describe what you are selling and include any details a buyer might be interested in. People love items with a stories!"
-            android:id="@+id/description"
-            android:maxLines="5"/>
+            android:minHeight="50dp">
 
-        <com.example.wishhub.CurrencyEditText
-            android:id="@+id/price"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="15dp"
+                android:maxLength="5000"
+                android:hint="Listing Description"
+                android:singleLine="false"
+                android:inputType="textShortMessage|textMultiLine|textCapSentences"
+                android:maxLines="7"
+                android:scrollbars="vertical"
+                android:gravity="start"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:maxLines="1" />
+            android:id="@+id/priceinput"
+            android:hint="      Price">
+
+            <com.example.wishhub.Miscellaneous.CurrencyEditText
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:maxLines="1"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Switch
             android:id="@+id/switch1"

@@ -6,18 +6,24 @@ public class User {
     private String name;
     private String email;
     private String status;
+    private String joindate;
 
-    public User(String id, String imageURL, String name, String email, String status) {
+    public User(String id, String imageURL, String name, String email, String status, String joindate) {
         this.id = id;
         this.imageURL = imageURL;
         this.name = name;
         this.email = email;
         this.status = status;
+        this.joindate = joindate;
     }
 
     public User() {
         //empty Constructor
     }
+
+    public String getJoindate() { return joindate; }
+
+    public void setJoindate(String joindate) { this.joindate = joindate; }
 
     public String getId() {
         return id;

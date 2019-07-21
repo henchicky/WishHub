@@ -1,4 +1,4 @@
-package com.example.wishhub;
+package com.example.wishhub.Miscellaneous;
 
 import android.content.Context;
 import android.graphics.Rect;

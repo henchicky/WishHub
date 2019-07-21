@@ -1,4 +1,4 @@
-package com.example.wishhub;
+package com.example.wishhub.Miscellaneous;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.example.wishhub.Authentication.Login;
 import com.example.wishhub.ChatSystem.Chat;
 import com.example.wishhub.HomePage.HomeActivity;
+import com.example.wishhub.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class NavigationPageToBeDelete extends AppCompatActivity {
