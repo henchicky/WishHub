@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -131,8 +132,10 @@ public class ChatRoom extends AppCompatActivity {
                 User value = dataSnapshot.getValue(User.class);
                 userChat.setText("Chat with " + value.getName());
                 if (value.getStatus().equals("online")) {
+                    userChat.setGravity(Gravity.TOP);
                     statusReport.setVisibility(View.VISIBLE);
                 } else {
+                    userChat.setGravity(Gravity.CENTER_VERTICAL);
                     statusReport.setVisibility(View.GONE);
                 }
                 readMessage(value);

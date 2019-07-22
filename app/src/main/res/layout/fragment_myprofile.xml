@@ -3,18 +3,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePage.MyProfileFragment"
-    android:padding="7dp">
+    tools:context=".HomePage.MyProfileFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/windowBackground">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/windowBackground">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="195dp"
+                        android:layout_height="41dp"
+                        android:src="@drawable/wishhub"
+                        android:id="@+id/logo"
+                        android:layout_marginStart="-18dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"/>
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/chatButton"
+                        android:background="@drawable/ic_chat"
+                        android:layout_centerVertical="true"/>
+
+                    <androidx.appcompat.widget.SearchView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/chatButton"
+                        android:background="@color/colorPrimaryDark"
+                        android:layout_marginRight="5dp">
+
+                    </androidx.appcompat.widget.SearchView>
+                </RelativeLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/your_pic"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/userphoto"/>
+            android:src="@drawable/userphoto"
+            android:layout_below="@+id/bar"
+            android:layout_margin="10dp"/>
 
         <TextView
             android:id="@+id/account_name"
@@ -23,6 +71,7 @@
             android:text="Nexusing"
             android:layout_below="@+id/your_pic"
             android:padding="5dp"
+            android:layout_marginStart="5dp"
             android:textStyle="bold"
             android:textSize="18dp"/>
         <TextView
@@ -32,6 +81,7 @@
             android:text="Join Date"
             android:layout_below="@+id/account_name"
             android:padding="5dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="20dp"/>
         <TextView
             android:id="@+id/t3"
@@ -39,29 +89,34 @@
             android:layout_height="wrap_content"
             android:text="Number of likes"
             android:layout_below="@+id/joindate"
-            android:padding="5dp"/>
+            android:padding="5dp"
+            android:layout_marginStart="5dp"/>
         <TextView
             android:id="@+id/t4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Number of items sold"
             android:layout_below="@+id/t3"
-            android:padding="5dp"/>
+            android:padding="5dp"
+            android:layout_marginStart="5dp"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Log out"
-            android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@+id/editPofile"
-            android:id="@+id/logoutButton"/>
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/bar"
+            android:id="@+id/logoutButton"
+            android:layout_margin="10dp"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Edit Profile"
-            android:layout_alignParentBottom="true"
-            android:id="@+id/editPofile"/>
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/logoutButton"
+            android:id="@+id/editPofile"
+            android:layout_margin="10dp"/>
 
     </RelativeLayout>
 

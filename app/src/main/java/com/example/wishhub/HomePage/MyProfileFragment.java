@@ -1,19 +1,26 @@
 package com.example.wishhub.HomePage;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.wishhub.Authentication.EditProfile;
 import com.example.wishhub.Authentication.User;
+import com.example.wishhub.ChatSystem.Chat;
 import com.example.wishhub.R;
 import com.example.wishhub.SplashScreen.SplashScreenActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,15 +35,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyProfileFragment extends Fragment {
 
-    private Button logout;
+    private Button logout, editprofile;
     private CircleImageView your_pic;
     private TextView accountname, joindate;
     private FirebaseUser firebaseUser;
+    private ImageButton chatButton;
 
     public MyProfileFragment() {
         // Required empty public constructor
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,7 +57,10 @@ public class MyProfileFragment extends Fragment {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(getActivity().getApplicationContext(), "Logged out successfully!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getActivity().getApplicationContext(), SplashScreenActivity.class));
+                Intent intent = new Intent(getActivity().getApplicationContext(), SplashScreenActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
 
@@ -68,15 +80,56 @@ public class MyProfileFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                Glide.with(getContext()).load(user.getImageURL()).into(your_pic);
-                accountname.setText(user.getName());
-                joindate.setText("Joined Date: " + user.getJoindate());
+
+                if (isAdded()){
+                    //Load image if the fragment is currently added to its activity.
+                    User user = dataSnapshot.getValue(User.class);
+                    accountname.setText(user.getName());
+                    joindate.setText("Joined Date: " + user.getJoindate());
+                    if (user.getImageURL().equals("default")){
+                        your_pic.setImageResource(R.mipmap.ic_launcher);
+                    } else {
+                        Glide.with(getContext()).load(user.getImageURL()).into(your_pic);
+                    }
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        editprofile = view.findViewById(R.id.editPofile);
+        editprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), EditProfile.class));
+            }
+        });
+
+        chatButton = view.findViewById(R.id.chatButton);
+        chatButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageButton view = (ImageButton) v;
+                        view.getBackground().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        v.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                        startActivity(new Intent(getContext(), Chat.class));
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageButton view = (ImageButton) v;
+                        view.getBackground().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+                }
+                return true;
             }
         });
         return view;
