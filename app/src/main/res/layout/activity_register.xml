@@ -19,14 +19,6 @@
         android:padding="16dp"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/regUserPhoto"
-            android:layout_width="400dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/wishhub" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/regName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

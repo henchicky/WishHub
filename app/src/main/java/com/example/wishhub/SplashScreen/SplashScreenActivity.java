@@ -12,7 +12,10 @@ import android.widget.Button;
 
 import com.example.wishhub.Authentication.Login;
 import com.example.wishhub.Authentication.RegisterActivity;
+import com.example.wishhub.HomePage.HomeActivity;
 import com.example.wishhub.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +29,14 @@ public class SplashScreenActivity extends AppCompatActivity {
     @SuppressLint("RestrictedApi")
     ArgbEvaluator argbEvaluator = new ArgbEvaluator();
     Button enterLoginPage, enterRegisterPage;
+    private FirebaseUser user;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        mAuth = FirebaseAuth.getInstance();
         models = new ArrayList<>();
         models.add(new Model(R.drawable.chat, "CONNECT AND INTERACT", "Communicate freely with each other and plan for you next Wish like never before!"));
         models.add(new Model(R.drawable.connect, "PERSONALISED FEED", "Get feeds tailored for your inner most desires!! Target and find your desired items"));
@@ -100,5 +106,15 @@ public class SplashScreenActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
             }
         });
+    }
+
+    public void onStart() {
+        super.onStart();
+        user = mAuth.getCurrentUser();
+
+        if (user != null) {
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            finish();
+        }
     }
 }

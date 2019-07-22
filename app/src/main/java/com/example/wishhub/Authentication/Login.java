@@ -104,15 +104,4 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-
-
-    public void onStart() {
-        super.onStart();
-        user = mAuth.getCurrentUser();
-
-        if (user != null) {
-            startActivity(new Intent(getApplicationContext(), NavigationPageToBeDelete.class));
-            finish();
-        }
-    }
 }
