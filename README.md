@@ -11,7 +11,7 @@ You can download WishHub apk file, and install it directly on your Android phone
 Others:
 1) git clone https://github.com/henchicky/WishHub.git
 
-2) Download and install latest version of Android Studio from https://developer.android.com/studio
+2) Download and install latest version of [Android Studio](https://developer.android.com/studio)
 
 3) Install a device emulator, and click the run app button. WishHub should open on an emulator on your laptop. (Refer to guide here)
 
