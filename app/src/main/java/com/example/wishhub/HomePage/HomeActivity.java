@@ -50,8 +50,8 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
 
             case R.id.navigation_trade:
-                //getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, tradeFragment).commit();
-                startActivity(new Intent(HomeActivity.this, PostActivity.class));
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, tradeFragment).commit();
+                //startActivity(new Intent(HomeActivity.this, PostActivity.class));
                 return true;
             case R.id.navigation_likes:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, likesFragment).commit();

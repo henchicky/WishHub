@@ -48,7 +48,7 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
@@ -56,15 +56,25 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="400dp"
             android:scaleType="centerInside"
             android:layout_gravity="center"
             android:src="@mipmap/ic_launcher"
             android:id="@+id/image_added"/>
 
+        <ImageView
+            android:id="@+id/pinch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_zoom"
+            android:layout_alignBottom="@+id/image_added"
+            android:layout_alignRight="@+id/image_added"/>
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pinch"
+            android:id="@+id/tt1">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,27 +87,30 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="50dp">
+            android:minHeight="50dp"
+            android:layout_below="@id/tt1"
+            android:id="@+id/tt2">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="15dp"
-                android:maxLength="5000"
+                android:gravity="start"
                 android:hint="Listing Description"
-                android:singleLine="false"
                 android:inputType="textShortMessage|textMultiLine|textCapSentences"
+                android:maxLength="5000"
                 android:maxLines="7"
                 android:scrollbars="vertical"
-                android:gravity="start"/>
+                android:singleLine="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/priceinput"
-            android:hint="      Price">
+            android:hint="      Price"
+            android:layout_below="@id/tt2">
 
             <com.example.wishhub.Miscellaneous.CurrencyEditText
                 android:id="@+id/price"
@@ -115,9 +128,10 @@
             android:showText="false"
             android:splitTrack="false"
             android:text="Listing Condition: Item is new!"
-            android:checked="true" />
+            android:checked="true"
+            android:layout_below="@+id/priceinput"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

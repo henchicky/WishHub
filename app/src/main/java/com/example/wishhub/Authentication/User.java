@@ -7,18 +7,28 @@ public class User {
     private String email;
     private String status;
     private String joindate;
+    private String bio;
 
-    public User(String id, String imageURL, String name, String email, String status, String joindate) {
+    public User(String id, String imageURL, String name, String email, String status, String joindate, String bio) {
         this.id = id;
         this.imageURL = imageURL;
         this.name = name;
         this.email = email;
         this.status = status;
         this.joindate = joindate;
+        this.bio = bio;
     }
 
     public User() {
         //empty Constructor
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public String getJoindate() { return joindate; }

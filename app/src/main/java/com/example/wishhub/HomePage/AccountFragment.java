@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import com.example.wishhub.ChatSystem.Chat;
 import com.example.wishhub.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +36,7 @@ public class AccountFragment extends Fragment {
     private RecyclerView recyclerView;
     private PostAdpapter postAdapter;
     private List<Post> postList;
+    private FirebaseUser firebaseUser;
 
     private List<String> followingList;
     ProgressBar progress_circular;
@@ -49,11 +51,12 @@ public class AccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         progress_circular = view.findViewById(R.id.progress_circular);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
-        mLayoutManager.setReverseLayout(true);
+        //mLayoutManager.setReverseLayout(true);
         //mLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(mLayoutManager);
         postList = new ArrayList<>();
@@ -122,11 +125,9 @@ public class AccountFragment extends Fragment {
                 postList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Post post = snapshot.getValue(Post.class);
-                    //for (String id : followingList){
-                        //if (post.getPublisher().equals(id)){
-                            postList.add(post);
-                        //}
-                    //}
+                    //see all uploaded post, including your own
+                        postList.add(post);
+
                 }
                 postAdapter.notifyDataSetChanged();
                 progress_circular.setVisibility(View.GONE);

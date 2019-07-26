@@ -48,6 +48,9 @@ dependencies {
 
     //posting image cropper
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+
+    //image zoomy (Zoomy)
+    implementation 'com.ablanco.zoomy:zoomy:1.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

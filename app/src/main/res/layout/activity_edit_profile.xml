@@ -18,7 +18,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/windowBackground">
+            android:background="?android:attr/windowBackground"
+            app:titleTextColor="@color/color2">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -101,7 +102,8 @@
         android:layout_below="@+id/profile_email"
         android:textSize="18dp"
         android:padding="10dp"
-        android:layout_alignBottom="@+id/tbio"/>
+        android:layout_alignBottom="@+id/tbio"
+        />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -113,27 +115,40 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edit_bio" />
+            android:id="@+id/edit_bio"
+            android:lines="3"
+            android:gravity="start"
+            android:hint="Describe yourself"
+            android:inputType="textShortMessage|textMultiLine|textCapSentences"
+            android:maxLength="5000"
+            android:maxLines="7"
+            android:scrollbars="vertical"
+            android:singleLine="false"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="Change Password"
         android:id="@+id/change_password"
         android:layout_above="@+id/deactivate_account"
         android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        android:background="@drawable/reg_btn_style"
+        android:textColor="#ffffff"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="Deactivate Account"
         android:id="@+id/deactivate_account"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
-        android:textColor="@color/color4"/>
+        android:textColor="@color/color4"
+        android:background="@drawable/reg_btn_style"/>
 
     <ProgressBar
         android:layout_width="match_parent"

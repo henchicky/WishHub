@@ -102,7 +102,7 @@ public class PostAdpapter extends RecyclerView.Adapter<PostAdpapter.ImageViewHol
 
     private void loadInfo(final Post post, final TextView title, final TextView price, final TextView condition, final TextView date) {
         title.setText(post.getTitle());
-        price.setText(post.getPrice());
+        price.setText("S$" + post.getPrice());
         if (post.getItemcondition().equals("true")) {
             condition.setText(" ~ New");
         } else {

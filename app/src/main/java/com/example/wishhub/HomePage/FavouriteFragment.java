@@ -1,5 +1,6 @@
 package com.example.wishhub.HomePage;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -8,10 +9,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.wishhub.Authentication.MainActivity;
 import com.example.wishhub.R;
 
 public class FavouriteFragment extends Fragment {
+
+    Button loginBtn;
 
     public FavouriteFragment() {
         // Required empty public constructor
@@ -20,7 +25,15 @@ public class FavouriteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favourite, container, false);
+        View view = inflater.inflate(R.layout.fragment_favourite, container, false);
+        loginBtn = view.findViewById(R.id.newlogin);
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), MainActivity.class));
+            }
+        });
+
+        return view;
     }
 }

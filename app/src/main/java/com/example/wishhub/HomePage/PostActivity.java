@@ -17,6 +17,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ablanco.zoomy.Zoomy;
 import com.example.wishhub.Miscellaneous.CurrencyEditText;
 import com.example.wishhub.R;
 import com.google.android.gms.tasks.Continuation;
@@ -43,7 +44,6 @@ public class PostActivity extends AppCompatActivity {
     String miUrlOk = "";
     private StorageTask uploadTask;
     StorageReference storageRef;
-
     ImageView close, image_added;
     TextView post;
     EditText description, title;
@@ -110,9 +110,9 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private String getFileExtension(Uri uri){
-        ContentResolver cR = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cR.getType(uri));
+        ContentResolver contentResolver = getApplicationContext().getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
     private void uploadImage_10(){
@@ -144,12 +144,13 @@ public class PostActivity extends AppCompatActivity {
 
                         String postid = reference.push().getKey();
 
+                        String pricing = price.getText().toString();
                         HashMap<String, Object> hashMap = new HashMap<>();
                         hashMap.put("postid", postid);
                         hashMap.put("postimage", miUrlOk);
                         hashMap.put("title", title.getText().toString());
                         hashMap.put("description", description.getText().toString());
-                        hashMap.put("price", price.getText().toString());
+                        hashMap.put("price", pricing.substring(3));
                         hashMap.put("itemcondition", "" + item_condition);
                         hashMap.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
                         hashMap.put("uploaddate", date);
@@ -186,6 +187,9 @@ public class PostActivity extends AppCompatActivity {
             mImageUri = result.getUri();
 
             image_added.setImageURI(mImageUri);
+            Zoomy.Builder builder = new Zoomy.Builder(this).target(image_added);
+            builder.register();
+
         } else {
             Toast.makeText(this, "Something gone wrong!", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(PostActivity.this, HomeActivity.class));

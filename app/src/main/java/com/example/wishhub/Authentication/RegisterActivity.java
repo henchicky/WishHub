@@ -227,7 +227,7 @@ public class RegisterActivity extends AppCompatActivity {
         dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         date = dateFormat.format(calendar.getTime());
         User user = new User(currentUser.getUid(), "https://firebasestorage.googleapis.com/v0/b/blogapp-72a37.appspot.com/o/users_photos%2F1559635064314.null?alt=media&token=8c25427f-bd7f-49b9-8d70-4ac396cac0af",
-                etName.getText().toString(), etEmail.getText().toString(), "", date);
+                etName.getText().toString(), etEmail.getText().toString(), "", date, "");
 
         //firebase generates unique key(how to retrieve afterwards)
         dStorage.child(mAuth.getCurrentUser().getUid()).setValue(user);

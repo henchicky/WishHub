@@ -18,32 +18,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Authentication.MainActivity"></activity>
         <activity
             android:name=".Authentication.EditProfile"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".HomePage.HomeActivity"/>
+            android:parentActivityName=".HomePage.HomeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".HomePage.PostDetails"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".HomePage.PostActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashScreen.SplashScreenActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".HomePage.HomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
-
-        </activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".ChatSystem.ChatRoom"
             android:parentActivityName=".ChatSystem.Chat"
