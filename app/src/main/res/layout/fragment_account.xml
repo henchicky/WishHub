@@ -38,17 +38,17 @@
                     android:layout_marginEnd="15dp"
                     android:layout_alignParentEnd="true"
                     android:id="@+id/chatButton"
-                    android:background="@drawable/ic_chat"
+                    android:src="@drawable/ic_chat"
+                    android:background="?android:selectableItemBackground"
                     android:layout_centerVertical="true"/>
 
-                <androidx.appcompat.widget.SearchView
+                <!--androidx.appcompat.widget.SearchView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/chatButton"
-                    android:background="@color/colorPrimaryDark"
+                    android:background="@android:color/transparent"
                     android:layout_marginRight="5dp">
-
-                </androidx.appcompat.widget.SearchView>
+                </androidx.appcompat.widget.SearchView-->
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>

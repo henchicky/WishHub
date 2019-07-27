@@ -3,19 +3,19 @@
 
     <item android:id="@+id/navigation_account"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="Account" />
+        android:title="Home" />
 
-    <item android:id="@+id/navigation_favourite"
+    <!--item android:id="@+id/navigation_favourite"
         android:icon="@drawable/ic_favorite_black_24dp"
-        android:title="Favourite" />
+        android:title="Favourite" /-->
 
     <item android:id="@+id/navigation_trade"
         android:icon="@drawable/ic_add_box_black_24dp"
-        android:title="Trade" />
+        android:title="Upload" />
 
-    <item android:id="@+id/navigation_likes"
+    <!--item android:id="@+id/navigation_likes"
         android:icon="@drawable/ic_favorite_black_24dp"
-        android:title="Likes" />
+        android:title="Likes" /-->
 
     <item android:id="@+id/navigation_myprofile"
         android:icon="@drawable/ic_person_black_24dp"

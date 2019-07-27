@@ -25,7 +25,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".HomePage.PostDetails"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:parentActivityName=".HomePage.HomeActivity"/>
         <activity
             android:name=".HomePage.PostActivity"
             android:screenOrientation="portrait" />

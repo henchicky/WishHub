@@ -46,7 +46,7 @@ public class Chat extends AppCompatActivity implements UserAdapter.onNoteListene
         setContentView(R.layout.activity_chat);
 
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("INbox");
+        toolbar.setTitle("Inbox");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

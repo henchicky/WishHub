@@ -49,7 +49,7 @@ public class MyProfileFragment extends Fragment {
     private Button logout;
     private FloatingActionButton editprofile ;
     private CircleImageView your_pic;
-    private TextView accountname, joindate;
+    private TextView accountname, joindate, bio;
     private FirebaseUser firebaseUser;
     private ImageButton chatButton;
     private static final int IMAGE_REQUEST = 1;
@@ -82,23 +82,12 @@ public class MyProfileFragment extends Fragment {
         postAdapter = new PostAdpapter(getContext(), postList);
         recyclerView.setAdapter(postAdapter);
         progress_circular = view.findViewById(R.id.progress_circular);
+        bio = view.findViewById(R.id.profilebio);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         storageReference = FirebaseStorage.getInstance().getReference("users_photos");
         reference = FirebaseDatabase.getInstance().getReference("users_names").child(firebaseUser.getUid());
 
-        logout = view.findViewById(R.id.logoutButton);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(getActivity().getApplicationContext(), "Logged out successfully!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity().getApplicationContext(), SplashScreenActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-        });
 
         your_pic = view.findViewById(R.id.your_pic);
 
@@ -115,7 +104,8 @@ public class MyProfileFragment extends Fragment {
                     //Load image if the fragment is currently added to its activity.
                     User user = dataSnapshot.getValue(User.class);
                     accountname.setText(user.getName());
-                    joindate.setText("Joined Date: " + user.getJoindate());
+                    joindate.setText(user.getJoindate());
+                    bio.setText(user.getBio());
                     if (user.getImageURL().equals("default")){
                         your_pic.setImageResource(R.mipmap.ic_launcher);
                     } else {

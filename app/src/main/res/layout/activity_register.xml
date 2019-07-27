@@ -96,7 +96,7 @@
             android:layout_width="330dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/reg_btn_style"
+            android:background="@drawable/button_file"
             android:text="SIGN UP"
             android:textColor="#ffffff" />
 

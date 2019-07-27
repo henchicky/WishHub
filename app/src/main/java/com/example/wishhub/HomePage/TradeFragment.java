@@ -1,6 +1,5 @@
 package com.example.wishhub.HomePage;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -30,6 +29,7 @@ import com.example.wishhub.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,10 +41,12 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -54,16 +56,17 @@ public class TradeFragment extends Fragment {
     private ArrayList<ImageUri> imageURLlist;
     private RecyclerView mRecyclerView;
     private ImageAdapter mAdapter;
-    private Button uploadmulitpleimages;
+    private TextView uploadmulitpleimages;
     private Uri mImageUri, tempUri;
     private ImageButton deletepic;
-    boolean startscreen = true;
-    private TextView text;
+    private TextView textty;
+    private TextInputLayout priceInputLayout;
+    ImageView hideimage;
 
     String miUrlOk = "";
-    private StorageTask uploadTask;
+    private StorageTask<UploadTask.TaskSnapshot> uploadTask;
     StorageReference storageRef;
-    TextView post;
+    Button post;
     EditText description, title;
     CurrencyEditText price;
     Switch switch_condition;
@@ -72,6 +75,7 @@ public class TradeFragment extends Fragment {
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
     private String date;
+    private static List<String> listOfUrl;
 
     public TradeFragment() {
         // Required empty public constructor
@@ -82,7 +86,7 @@ public class TradeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_trade, container, false);
 
         createList();
-        text = view.findViewById(R.id.text_upload);
+        textty = view.findViewById(R.id.text_upload);
         deletepic = view.findViewById(R.id.delete_image);
         mRecyclerView = view.findViewById(R.id.recyclerView_hor);
         mRecyclerView.setHasFixedSize(true);
@@ -102,10 +106,12 @@ public class TradeFragment extends Fragment {
             }
         });
 
+        hideimage = view.findViewById(R.id.image_hide);
         post = view.findViewById(R.id.post);
         description = view.findViewById(R.id.description);
         title = view.findViewById(R.id.title);
         price = view.findViewById(R.id.price);
+        priceInputLayout = view.findViewById(R.id.priceinput);
         switch_condition = view.findViewById(R.id.switch1);
         switch_condition.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -134,6 +140,8 @@ public class TradeFragment extends Fragment {
             }
         });
 
+        listOfUrl = new ArrayList<>();
+
         return view;
     }
 
@@ -156,15 +164,16 @@ public class TradeFragment extends Fragment {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             mImageUri = result.getUri();
-            Toast.makeText(getContext(), "array length "+imageURLlist.size(), Toast.LENGTH_SHORT).show();
             imageURLlist.add(imageURLlist.size(), new ImageUri(mImageUri));
             //mAdapter.notifyItemInserted(imageURLlist.size() - 1);
             mAdapter.notifyDataSetChanged();
             //Toast.makeText(getContext(), "Added to arraylist" + imageURLlist.size(), Toast.LENGTH_SHORT).show();
-            //mImageUri = tempUri;
+            mImageUri = tempUri;
             if (imageURLlist.size() > 0) {
-                text.setVisibility(View.GONE);
+                textty.setVisibility(View.GONE);
+                hideimage.setVisibility(View.GONE);
             }
+            Toast.makeText(getContext(), "imageURLlist length = "+imageURLlist.size(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), "Something gone wrong!", Toast.LENGTH_SHORT).show();
             //startActivity(new Intent(getContext(), HomeActivity.class));
@@ -172,10 +181,177 @@ public class TradeFragment extends Fragment {
     }
 
     private void uploadImage_10(){
+        final String pricing = price.getText().toString().trim();
+        if (pricing.equals("")) {
+            priceInputLayout.setError("Please enter a price.");
+        } else {
+            //Toast.makeText(getContext(), "ArrayList = " + imageURLlist.size(), Toast.LENGTH_SHORT).show();
+            if (imageURLlist.size() > 0) {
+                final ProgressDialog pd = new ProgressDialog(getContext());
+                pd.setMessage("Posting");
+                pd.show();
 
-        final ProgressDialog pd = new ProgressDialog(getContext());
-        pd.setMessage("Posting");
-        pd.show();
+                if (imageURLlist.size() == 1) {
+                    //1st image
+                    final StorageReference fileReference = storageRef.child(System.currentTimeMillis()
+                            + "." + getFileExtension(imageURLlist.get(0).getImageUri()));
+
+                    uploadTask = fileReference.putFile(imageURLlist.get(0).getImageUri());
+
+                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()) {
+                                throw task.getException();
+                            }
+
+                            // Continue with the task to get the download URL
+                            return fileReference.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Uri downloadUri = task.getResult();
+                                //System.out.println("Upload " + downloadUri);
+                                //Toast.makeText(getActivity(), "Successfully uploaded", Toast.LENGTH_SHORT).show();
+                                if (downloadUri != null) {
+                                    String photoStringLink = downloadUri.toString(); //YOU WILL GET THE DOWNLOAD URL HERE !!!!
+                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+                                    String postid = reference.push().getKey();
+
+                                    HashMap<String, Object> hashMap = new HashMap<>();
+                                    hashMap.put("postid", postid);
+
+                                    //put in a list of urls
+                                    String list = "";
+                                    for (int i = 0; i < listOfUrl.size(); i++) {
+                                        list += listOfUrl.get(i) + "|||||";
+                                    }
+                                    hashMap.put("postimage", photoStringLink);
+                                    hashMap.put("title", title.getText().toString());
+                                    hashMap.put("description", description.getText().toString());
+                                    hashMap.put("price", pricing.substring(3));
+                                    hashMap.put("itemcondition", "" + item_condition);
+                                    hashMap.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                    hashMap.put("uploaddate", date);
+                                    reference.child(postid).setValue(hashMap);
+
+                                    pd.dismiss();
+                                    Toast.makeText(getContext(), "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                                }
+
+                            } else {
+                                // Handle failures
+                            }
+                            startActivity(new Intent(getContext(), HomeActivity.class));
+                        }
+                    });
+                } else if (imageURLlist.size() == 2) {
+                    //1st image
+                    final StorageReference fileReference = storageRef.child(System.currentTimeMillis()
+                            + "." + getFileExtension(imageURLlist.get(0).getImageUri()));
+
+                    uploadTask = fileReference.putFile(imageURLlist.get(0).getImageUri());
+
+                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()) {
+                                throw task.getException();
+                            }
+
+                            // Continue with the task to get the download URL
+                            return fileReference.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Uri downloadUri = task.getResult();
+                                //System.out.println("Upload " + downloadUri);
+                                //Toast.makeText(getActivity(), "Successfully uploaded", Toast.LENGTH_SHORT).show();
+                                if (downloadUri != null) {
+                                    String photoStringLink = downloadUri.toString(); //YOU WILL GET THE DOWNLOAD URL HERE !!!!
+                                    listOfUrl.add(photoStringLink);
+                                }
+
+                            } else {
+                                // Handle failures
+                            }
+                        }
+                    });
+
+                    //2nd image
+                    final StorageReference fileReference2 = storageRef.child(System.currentTimeMillis()
+                            + "." + getFileExtension(imageURLlist.get(1).getImageUri()));
+
+                    uploadTask = fileReference2.putFile(imageURLlist.get(1).getImageUri());
+
+                    Task<Uri> urlTask2 = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()) {
+                                throw task.getException();
+                            }
+
+                            // Continue with the task to get the download URL
+                            return fileReference2.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Uri downloadUri = task.getResult();
+                                //System.out.println("Upload " + downloadUri);
+                                //Toast.makeText(getActivity(), "Successfully uploaded", Toast.LENGTH_SHORT).show();
+                                if (downloadUri != null) {
+                                    String photoStringLink = downloadUri.toString(); //YOU WILL GET THE DOWNLOAD URL HERE !!!!
+                                    listOfUrl.add(photoStringLink);
+                                }
+
+                            } else {
+                                // Handle failures
+                            }
+                        }
+                    });
+                } else {}
+
+                /*
+                Toast.makeText(getContext(), "listOfUrl size = " + listOfUrl.size(), Toast.LENGTH_SHORT).show();
+
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+
+                String postid = reference.push().getKey();
+
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("postid", postid);
+
+                //put in a list of urls
+                String list = "";
+                for (int i = 0; i < listOfUrl.size(); i++) {
+                    list += listOfUrl.get(i) + "|||||";
+                }
+                hashMap.put("postimage", list);
+                hashMap.put("title", title.getText().toString());
+                hashMap.put("description", description.getText().toString());
+                hashMap.put("price", pricing.substring(3));
+                hashMap.put("itemcondition", "" + item_condition);
+                hashMap.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                hashMap.put("uploaddate", date);
+                reference.child(postid).setValue(hashMap);
+
+                pd.dismiss();*/
+
+                //startActivity(new Intent(getContext(), HomeActivity.class));
+                //getActivity().finish();
+            } else {
+                Toast.makeText(getContext(), "No image selected", Toast.LENGTH_SHORT).show();
+            }
+
+
+
+        /*
         if (mImageUri != null){
             final StorageReference fileReference = storageRef.child(System.currentTimeMillis()
                     + "." + getFileExtension(mImageUri));
@@ -230,6 +406,7 @@ public class TradeFragment extends Fragment {
 
         } else {
             Toast.makeText(getContext(), "No image selected", Toast.LENGTH_SHORT).show();
+        }*/
         }
     }
 }

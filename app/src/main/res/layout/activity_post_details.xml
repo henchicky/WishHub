@@ -1,22 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomePage.PostDetails">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Post Details"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:padding="3dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageprod"
+                android:layout_width="match_parent"
+                android:layout_height="460dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/ic_zoom"
+                android:backgroundTint="@color/background"
+                android:src="@color/color2" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imageprod"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/ic_zoom" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/imageprod"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:cardPreventCornerOverlap="true"
+                android:background="@color/background">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/titleprod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:padding="10dp"
+                        android:text="Title"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/date_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/titleprod"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/ic_date" />
+
+                    <TextView
+                        android:id="@+id/dateprod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/date_image"
+                        android:layout_marginLeft="15dp"
+                        android:layout_toRightOf="@+id/date_image"
+                        android:text="Uploaded Date"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"/>
+
+                    <ImageView
+                        android:id="@+id/imageslikes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/date_image"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/ic_favourite" />
+
+                    <TextView
+                        android:id="@+id/likesprod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/imageslikes"
+                        android:layout_marginLeft="15dp"
+                        android:layout_toRightOf="@+id/imageslikes"
+                        android:text="Num of likes"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"/>
+
+                    <ImageView
+                        android:id="@+id/imagesdesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imageslikes"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/ic_description" />
+
+                    <TextView
+                        android:id="@+id/descriptionprod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/imagesdesc"
+                        android:layout_marginLeft="15dp"
+                        android:layout_toRightOf="@+id/imagesdesc"
+                        android:text="Description"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"/>
+
+                    <ImageView
+                        android:id="@+id/imagelocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imagesdesc"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/ic_location" />
+
+                    <TextView
+                        android:id="@+id/locationprod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/imagelocation"
+                        android:layout_marginLeft="15dp"
+                        android:layout_toRightOf="@+id/imagelocation"
+                        android:text="Location"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"/>
+
+                    <ImageView
+                        android:id="@+id/imagecondition"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imagelocation"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/ic_conditon" />
+
+                    <TextView
+                        android:id="@+id/conditionprod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/imagecondition"
+                        android:layout_marginLeft="15dp"
+                        android:layout_toRightOf="@+id/imagecondition"
+                        android:text="Conditon"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"/>
+
+                    <ImageView
+                        android:id="@+id/likebtn"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_below="@+id/imagecondition"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/btn_layout"
+                        android:padding="3dp"
+                        android:src="@drawable/ic_favourite"
+                        android:layout_marginLeft="5dp"/>
+
+                    <Button
+                        android:id="@+id/chatBtn1"
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imagecondition"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/likebtn"
+                        android:background="@drawable/button_file"
+                        android:text="Chat"
+                        android:textColor="@color/color3" />
+
+                    <Button
+                        android:id="@+id/edit_btn"
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/imagecondition"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/chatBtn1"
+                        android:background="@drawable/button_file"
+                        android:text="Edit"
+                        android:textColor="@color/color3"
+                        android:layout_marginRight="5dp"/>
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

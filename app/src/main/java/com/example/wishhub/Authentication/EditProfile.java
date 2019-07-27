@@ -48,7 +48,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditProfile extends AppCompatActivity {
 
-    private Button deactivateaccount;
+    private Button deactivateaccount, logout;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private ProgressBar progressBar;
@@ -59,7 +59,7 @@ public class EditProfile extends AppCompatActivity {
     private DatabaseReference reference;
     private StorageTask<UploadTask.TaskSnapshot> uploadTask;
     private TextInputEditText editname, editemail, editbio;
-    private ImageButton saveBtn;
+    private Button saveBtn;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -92,32 +92,17 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
-        saveBtn.setOnTouchListener(new View.OnTouchListener() {
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        ImageButton view = (ImageButton) v;
-                        view.getBackground().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-                        v.invalidate();
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP:
-                        HashMap<String, Object> hashMap = new HashMap<>();
-                        hashMap.put("name", editname.getText().toString());
-                        hashMap.put("bio", editbio.getText().toString());
-                        reference.updateChildren(hashMap);
-                        Toast.makeText(EditProfile.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
-                    case MotionEvent.ACTION_CANCEL: {
-                        ImageButton view = (ImageButton) v;
-                        view.getBackground().clearColorFilter();
-                        view.invalidate();
-                        break;
-                    }
-                }
-                return true;
+            public void onClick(View v) {
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("name", editname.getText().toString());
+                hashMap.put("bio", editbio.getText().toString());
+                reference.updateChildren(hashMap);
+                Toast.makeText(EditProfile.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
             }
         });
+
         profilepic = findViewById(R.id.profile_my_image);
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -125,7 +110,7 @@ public class EditProfile extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         deactivateaccount = findViewById(R.id.deactivate_account);
-        progressBar = findViewById(R.id.progress_bar);
+        progressBar = findViewById(R.id.progress_barrr);
         deactivateaccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,6 +175,37 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        logout = findViewById(R.id.change_password);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(EditProfile.this);
+                dialog.setTitle("Are you sure?");
+                dialog.setMessage("Logging out of your account will not allow you to continue to enjoy WishHub's services!");
+                dialog.setPositiveButton("Log out!", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        FirebaseAuth.getInstance().signOut();
+                        Toast.makeText(getApplicationContext(), "Logged out successfully!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext().getApplicationContext(), SplashScreenActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                });
+                dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alertDialog = dialog.create();
+                alertDialog.show();
             }
         });
     }

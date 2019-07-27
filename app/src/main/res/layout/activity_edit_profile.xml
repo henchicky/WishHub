@@ -25,18 +25,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageButton
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:layout_alignParentEnd="true"
                     android:id="@+id/saveButton"
-                    android:background="@drawable/ic_tick"
+                    android:src="@drawable/ic_tick"
+                    android:background="@android:color/transparent"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/t7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile Picture"
+        android:layout_alignBottom="@+id/profile_my_image"
+        android:textSize="18dp"
+        android:padding="10dp"
+        android:layout_marginBottom="30dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tap to change"
+        android:layout_below="@+id/t7"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="-35dp"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="100dp"
@@ -52,7 +70,6 @@
         android:layout_height="wrap_content"
         android:text="Name"
         android:id="@+id/profile_name"
-        android:layout_below="@+id/profile_my_image"
         android:textSize="18dp"
         android:padding="10dp"
         android:layout_alignBottom="@+id/tname"/>
@@ -76,7 +93,6 @@
         android:layout_height="wrap_content"
         android:text="Email"
         android:id="@+id/profile_email"
-        android:layout_below="@+id/profile_name"
         android:layout_alignBottom="@+id/temail"
         android:textSize="18dp"
         android:padding="10dp"/>
@@ -99,11 +115,9 @@
         android:layout_height="wrap_content"
         android:text="Bio"
         android:id="@+id/profile_password"
-        android:layout_below="@+id/profile_email"
         android:textSize="18dp"
         android:padding="10dp"
-        android:layout_alignBottom="@+id/tbio"
-        />
+        android:layout_alignBottom="@+id/tbio" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -130,13 +144,13 @@
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Change Password"
+        android:text="Log out"
         android:id="@+id/change_password"
         android:layout_above="@+id/deactivate_account"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
-        android:background="@drawable/reg_btn_style"
-        android:textColor="#ffffff"/>
+        android:background="@drawable/button_file"
+        android:textColor="@color/color3"/>
 
     <Button
         android:layout_width="330dp"
@@ -148,14 +162,14 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
         android:textColor="@color/color4"
-        android:background="@drawable/reg_btn_style"/>
+        android:background="@drawable/btn_layout"/>
 
     <ProgressBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/change_password"
         android:visibility="invisible"
-        android:id="@+id/progress_bar"/>
+        android:id="@+id/progress_barrr"/>
 
 
 </RelativeLayout>

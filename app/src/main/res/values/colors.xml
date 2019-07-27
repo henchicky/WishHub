@@ -7,6 +7,8 @@
     <color name="color2">#007975</color>
     <color name="color3">#303F9F</color>
     <color name="color4">#FF0000</color>
-    <color name="background">#CFCFCF</color>
+    <color name="background">#c2c2c2</color>
+
+    <color name="button_pressed">#d1d1d1</color>
 
 </resources>

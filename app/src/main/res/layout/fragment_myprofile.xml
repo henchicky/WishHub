@@ -41,14 +41,7 @@
                     android:background="@drawable/ic_chat"
                     android:layout_centerVertical="true"/>
 
-                <androidx.appcompat.widget.SearchView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/chatButton"
-                    android:background="@color/colorPrimaryDark"
-                    android:layout_marginRight="5dp">
 
-                </androidx.appcompat.widget.SearchView>
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
@@ -57,7 +50,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="25dp"
+        android:layout_marginBottom="-30dp"
         android:layout_below="@+id/bar"
         android:background="@color/color2"
         android:id="@+id/rel_layout1">
@@ -66,13 +63,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:tint="@android:color/white"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="-32dp"
             android:layout_alignRight="@+id/card_view"
-            android:layout_alignBottom="@+id/card_view"
-            android:elevation="100dp"
+            android:layout_alignTop="@+id/card_view"
             android:src="@drawable/ic_edit"
-            android:id="@+id/editPofile"/>
+            android:id="@+id/editPofile"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
@@ -84,8 +80,7 @@
             android:clipToPadding="false"
             android:clipChildren="false"
             app:cardCornerRadius="7dp"
-            app:cardElevation="5dp"
-            app:cardPreventCornerOverlap="false">
+            app:cardPreventCornerOverlap="true">
 
             <RelativeLayout
                 android:id="@+id/rel_layout2"
@@ -109,102 +104,124 @@
                     android:padding="5dp"
                     android:layout_marginStart="5dp"
                     android:textStyle="bold"
-                    android:textSize="18dp"/>
+                    android:textSize="20dp"
+                    android:textColor="@android:color/black"/>
+
+                <TextView
+                    android:id="@+id/profilebio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/account_name"
+                    android:text="bio"
+                    android:layout_marginLeft="10dp"/>
+
                 <TextView
                     android:id="@+id/joindate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Join Date"
-                    android:layout_below="@+id/account_name"
-                    android:padding="5dp"
+                    android:layout_below="@+id/joindatechange"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="15dp"/>
+                    android:paddingLeft="5dp"/>
+
                 <TextView
-                    android:id="@+id/t3"
+                    android:id="@+id/joindatechange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Number of likes"
-                    android:layout_below="@+id/joindate"
+                    android:text="JOIN DATE"
+                    android:layout_below="@+id/profilebio"
                     android:padding="5dp"
-                    android:layout_marginStart="5dp"/>
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@android:color/black"/>
+
+
+                <TextView
+                    android:id="@+id/t5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12"
+                    android:layout_toRightOf="@+id/joindate"
+                    android:layout_marginLeft="65dp"
+                    android:layout_below="@id/t4"/>
+
                 <TextView
                     android:id="@+id/t4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Number of items sold"
-                    android:layout_below="@+id/t3"
+                    android:text="NO. OF ITEMS SOLD"
+                    android:layout_toRightOf="@+id/joindate"
                     android:padding="5dp"
-                    android:layout_marginStart="5dp"/>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Log out"
-                    android:layout_alignParentEnd="true"
-                    android:id="@+id/logoutButton"
-                    android:layout_margin="10dp"/>
+                    android:layout_marginLeft="15dp"
+                    android:layout_below="@id/profilebio"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@android:color/black"/>
 
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0.0px"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            app:cardCornerRadius="7dp"
+            app:cardPreventCornerOverlap="true"
             android:layout_below="@+id/card_view"
-            android:layout_marginTop="40dp" >
+            android:layout_marginTop="25dp">
 
-            <!--RelativeLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"-->
+                android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/mylistingtext"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="MY LISTING"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                android:padding="7dp"
+                android:textSize="18dp"/>
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card_view1"
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/mylistingtext">
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="8dp"
-                    android:divider="@android:color/transparent"
-                    android:dividerHeight="0.0px"
-                    android:clipToPadding="false"
-                    android:clipChildren="false"
-                    app:cardCornerRadius="7dp"
-                    app:cardElevation="10dp"
-                    app:cardPreventCornerOverlap="false">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-                        <TextView
-                            android:id="@+id/mylistingtext"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="MY LISTING"
-                            android:layout_centerHorizontal="true"
-                            android:textStyle="bold"
-                            android:padding="7dp"/>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view_profile_page"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/mylistingtext">
+                            android:layout_height="wrap_content">
                         </androidx.recyclerview.widget.RecyclerView>
+
+                        <ProgressBar
+                            android:id="@+id/progress_circular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"/>
                     </RelativeLayout>
 
-                </androidx.cardview.widget.CardView>
 
-                <ProgressBar
-                    android:id="@+id/progress_circular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/card_view1" />
-        </LinearLayout>>
-        </androidx.core.widget.NestedScrollView>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
 
     </RelativeLayout>

@@ -1,6 +1,8 @@
 package com.example.wishhub.HomePage;
 
-public class Post {
+import java.io.Serializable;
+
+public class Post implements Serializable {
 
     private String postid;
     private String postimage;

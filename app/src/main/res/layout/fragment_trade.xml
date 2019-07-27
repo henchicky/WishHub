@@ -22,25 +22,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_back"
-                    android:id="@+id/close"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:text="Describe your listing"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorPrimary" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="POST"
-                    android:id="@+id/post"
+                    android:text="Upload Image"
+                    android:id="@+id/upload_multiple_images"
                     android:textSize="16sp"
                     android:layout_centerVertical="true"
                     android:textColor="@color/colorPrimary"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_alignParentEnd="true"
+                    android:background="?android:selectableItemBackground"/>
 
             </RelativeLayout>
 
@@ -49,13 +49,21 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="355dp"
+        android:layout_height="335dp"
         android:id="@+id/recyclerView_hor"
         android:orientation="horizontal"
         android:scrollbars="horizontal"
         android:layout_below="@+id/bar"
         android:background="@android:color/transparent">
     </androidx.recyclerview.widget.RecyclerView>
+
+    <ImageView
+        android:id="@+id/image_hide"
+        android:layout_width="match_parent"
+        android:layout_height="335dp"
+        android:padding="15dp"
+        android:src="@drawable/reg_btn_style"
+        android:layout_below="@+id/bar"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -135,11 +143,15 @@
             android:layout_below="@+id/priceinput"/>
 
         <Button
-            android:id="@+id/upload_multiple_images"
-            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:id="@+id/post"
+            android:layout_width="330dp"
             android:layout_height="wrap_content"
-            android:text="Upload Images"
-            android:layout_below="@+id/switch1"/>
+            android:text="Post Listing"
+            android:layout_below="@+id/switch1"
+            android:background="@drawable/reg_btn_style"
+            android:textColor="@color/color3"
+            android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 
 </RelativeLayout>
