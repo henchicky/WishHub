@@ -44,7 +44,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:paddingRight="5dp">
 
                     <TextView
                         android:id="@+id/titleprod"
@@ -59,11 +60,11 @@
 
                     <ImageView
                         android:id="@+id/date_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
                         android:layout_below="@+id/titleprod"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="15dp"
                         android:src="@drawable/ic_date" />
 
                     <TextView
@@ -74,16 +75,34 @@
                         android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/date_image"
                         android:text="Uploaded Date"
-                        android:textSize="16sp"
+                        android:textColor="@android:color/black"/>
+
+                    <ImageView
+                        android:id="@+id/price_image"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_below="@+id/date_image"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/ic_date" />
+
+                    <TextView
+                        android:id="@+id/priceprod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/price_image"
+                        android:layout_marginLeft="15dp"
+                        android:layout_toRightOf="@+id/price_image"
+                        android:text="Price"
                         android:textColor="@android:color/black"/>
 
                     <ImageView
                         android:id="@+id/imageslikes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/date_image"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_below="@+id/price_image"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="15dp"
                         android:src="@drawable/ic_favourite" />
 
                     <TextView
@@ -94,37 +113,36 @@
                         android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/imageslikes"
                         android:text="Num of likes"
-                        android:textSize="16sp"
                         android:textColor="@android:color/black"/>
 
                     <ImageView
                         android:id="@+id/imagesdesc"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
                         android:layout_below="@+id/imageslikes"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="15dp"
                         android:src="@drawable/ic_description" />
 
                     <TextView
                         android:id="@+id/descriptionprod"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/imagesdesc"
+                        android:layout_alignTop="@+id/imagesdesc"
                         android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/imagesdesc"
-                        android:text="Description"
-                        android:textSize="16sp"
-                        android:textColor="@android:color/black"/>
+                        android:text="@string/random_text"
+                        android:textColor="@android:color/black" />
 
                     <ImageView
                         android:id="@+id/imagelocation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/imagesdesc"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_below="@+id/descriptionprod"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginBottom="10dp"
-                        android:src="@drawable/ic_location" />
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/ic_location"
+                        android:layout_marginTop="15dp"/>
 
                     <TextView
                         android:id="@+id/locationprod"
@@ -134,16 +152,15 @@
                         android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/imagelocation"
                         android:text="Location"
-                        android:textSize="16sp"
                         android:textColor="@android:color/black"/>
 
                     <ImageView
                         android:id="@+id/imagecondition"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
                         android:layout_below="@+id/imagelocation"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="15dp"
                         android:src="@drawable/ic_conditon" />
 
                     <TextView
@@ -154,7 +171,6 @@
                         android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/imagecondition"
                         android:text="Conditon"
-                        android:textSize="16sp"
                         android:textColor="@android:color/black"/>
 
                     <ImageView
@@ -163,10 +179,22 @@
                         android:layout_height="48dp"
                         android:layout_below="@+id/imagecondition"
                         android:layout_marginBottom="15dp"
+                        android:src="@drawable/icloveempty"
                         android:background="@drawable/btn_layout"
                         android:padding="3dp"
-                        android:src="@drawable/ic_favourite"
                         android:layout_marginLeft="5dp"/>
+
+                    <ImageView
+                        android:id="@+id/likebtnred"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_below="@+id/imagecondition"
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/iclovefilled"
+                        android:background="@drawable/btn_layout"
+                        android:padding="3dp"
+                        android:layout_marginLeft="5dp"
+                        android:visibility="gone"/>
 
                     <Button
                         android:id="@+id/chatBtn1"

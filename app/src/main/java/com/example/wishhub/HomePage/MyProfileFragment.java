@@ -78,8 +78,9 @@ public class MyProfileFragment extends Fragment {
         LinearLayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
         // mLayoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(mLayoutManager);
+
         postList = new ArrayList<>();
-        postAdapter = new PostAdpapter(getContext(), postList);
+        postAdapter = new PostAdpapter(getContext(), postList, 1);
         recyclerView.setAdapter(postAdapter);
         progress_circular = view.findViewById(R.id.progress_circular);
         bio = view.findViewById(R.id.profilebio);

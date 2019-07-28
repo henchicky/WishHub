@@ -1,10 +1,14 @@
 package com.example.wishhub.HomePage;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,19 +34,29 @@ public class PostAdpapter extends RecyclerView.Adapter<PostAdpapter.ImageViewHol
 
     private Context mContext;
     private List<Post> mPosts;
+    private int type;
+
+    private static final DecelerateInterpolator DECCELERATE_INTERPOLATOR = new DecelerateInterpolator();
+    private static final AccelerateInterpolator ACCELERATE_INTERPOLATOR = new AccelerateInterpolator();
 
     private FirebaseUser firebaseUser;
 
-    public PostAdpapter (Context context, List<Post> posts) {
+    public PostAdpapter (Context context, List<Post> posts, int type) {
         mContext = context;
         mPosts = posts;
+        this.type = type;
     }
 
     @NonNull
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.post_item, parent, false);
-        return new PostAdpapter.ImageViewHolder(view);
+        if (type == 1) {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.post_item_owner, parent, false);
+            return new PostAdpapter.ImageViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.post_item, parent, false);
+            return new PostAdpapter.ImageViewHolder(view);
+        }
     }
 
     @Override
@@ -57,10 +71,85 @@ public class PostAdpapter extends RecyclerView.Adapter<PostAdpapter.ImageViewHol
         publisherInfo(holder.image_profile, holder.username, holder.publisher, post.getPublisher());
         loadInfo(post, holder.title, holder.price, holder.condition, holder.date);
 
-        holder.like.setOnClickListener(new View.OnClickListener() {
+        final AnimatorSet animationSet =  new AnimatorSet();
+
+        holder.heartRed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Liked", Toast.LENGTH_SHORT).show();
+                if (holder.heartRed.getVisibility() == View.VISIBLE) {
+                    holder.heartRed.setScaleX(0.1f);
+                    holder.heartRed.setScaleY(0.1f);
+
+                    ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(holder.heartRed, "scaleY", 1f, 0f);
+                    scaleDownY.setDuration(300);
+                    scaleDownY.setInterpolator(ACCELERATE_INTERPOLATOR);
+
+                    ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(holder.heartRed, "scaleX", 1f, 0f);
+                    scaleDownX.setDuration(300);
+                    scaleDownX.setInterpolator(ACCELERATE_INTERPOLATOR);
+
+                    holder.heartRed.setVisibility(View.GONE);
+                    holder.heartWhite.setVisibility(View.VISIBLE);
+
+                    animationSet.playTogether(scaleDownY, scaleDownX);
+                } else if (holder.heartRed.getVisibility() == View.GONE) {
+                    holder.heartRed.setScaleX(0.1f);
+                    holder.heartRed.setScaleY(0.1f);
+
+                    ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(holder.heartRed, "scaleY", 0.1f, 1f);
+                    scaleDownY.setDuration(300);
+                    scaleDownY.setInterpolator(DECCELERATE_INTERPOLATOR);
+
+                    ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(holder.heartRed, "scaleX", 0.1f, 1f);
+                    scaleDownX.setDuration(300);
+                    scaleDownX.setInterpolator(DECCELERATE_INTERPOLATOR);
+
+                    holder.heartRed.setVisibility(View.VISIBLE);
+                    holder.heartWhite.setVisibility(View.GONE);
+
+                    animationSet.playTogether(scaleDownY, scaleDownX);
+                }
+                animationSet.start();
+            }
+        });
+
+        holder.heartWhite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.heartRed.getVisibility() == View.VISIBLE) {
+                    holder.heartRed.setScaleX(0.1f);
+                    holder.heartRed.setScaleY(0.1f);
+
+                    ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(holder.heartRed, "scaleY", 1f, 0f);
+                    scaleDownY.setDuration(300);
+                    scaleDownY.setInterpolator(ACCELERATE_INTERPOLATOR);
+
+                    ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(holder.heartRed, "scaleX", 1f, 0f);
+                    scaleDownX.setDuration(300);
+                    scaleDownX.setInterpolator(ACCELERATE_INTERPOLATOR);
+
+                    holder.heartRed.setVisibility(View.GONE);
+                    holder.heartWhite.setVisibility(View.VISIBLE);
+
+                    animationSet.playTogether(scaleDownY, scaleDownX);
+                } else if (holder.heartRed.getVisibility() == View.GONE) {
+                    holder.heartRed.setScaleX(0.1f);
+                    holder.heartRed.setScaleY(0.1f);
+
+                    ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(holder.heartRed, "scaleY", 0.1f, 1f);
+                    scaleDownY.setDuration(300);
+                    scaleDownY.setInterpolator(DECCELERATE_INTERPOLATOR);
+
+                    ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(holder.heartRed, "scaleX", 0.1f, 1f);
+                    scaleDownX.setDuration(300);
+                    scaleDownX.setInterpolator(DECCELERATE_INTERPOLATOR);
+
+                    holder.heartRed.setVisibility(View.VISIBLE);
+                    holder.heartWhite.setVisibility(View.GONE);
+
+                    animationSet.playTogether(scaleDownY, scaleDownX);
+                }
+                animationSet.start();
             }
         });
 
@@ -81,7 +170,7 @@ public class PostAdpapter extends RecyclerView.Adapter<PostAdpapter.ImageViewHol
 
     public class ImageViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView image_profile, post_image, like;
+        public ImageView image_profile, post_image, heartRed, heartWhite;
         public TextView username, publisher, title, price, condition, date;
         public ImageView imageView;
 
@@ -91,7 +180,8 @@ public class PostAdpapter extends RecyclerView.Adapter<PostAdpapter.ImageViewHol
             image_profile = itemView.findViewById(R.id.image_profile);
             username = itemView.findViewById(R.id.username);
             post_image = itemView.findViewById(R.id.post_image);
-            like = itemView.findViewById(R.id.like);
+            heartRed = itemView.findViewById(R.id.likebtnchange);
+            heartWhite = itemView.findViewById(R.id.likebtnred);
             publisher = itemView.findViewById(R.id.publisher);
             title = itemView.findViewById(R.id.title);
             price = itemView.findViewById(R.id.price);

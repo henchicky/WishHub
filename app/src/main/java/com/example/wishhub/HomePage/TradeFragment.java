@@ -60,7 +60,7 @@ public class TradeFragment extends Fragment {
     private Uri mImageUri, tempUri;
     private ImageButton deletepic;
     private TextView textty;
-    private TextInputLayout priceInputLayout;
+    private TextInputLayout priceInputLayout, titleinputlayout, descinputlayout;
     ImageView hideimage;
 
     String miUrlOk = "";
@@ -112,6 +112,8 @@ public class TradeFragment extends Fragment {
         title = view.findViewById(R.id.title);
         price = view.findViewById(R.id.price);
         priceInputLayout = view.findViewById(R.id.priceinput);
+        titleinputlayout = view.findViewById(R.id.tt1);
+        descinputlayout = view.findViewById(R.id.tt2);
         switch_condition = view.findViewById(R.id.switch1);
         switch_condition.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -182,8 +184,16 @@ public class TradeFragment extends Fragment {
 
     private void uploadImage_10(){
         final String pricing = price.getText().toString().trim();
-        if (pricing.equals("")) {
-            priceInputLayout.setError("Please enter a price.");
+        if (pricing.isEmpty() || title.getText().toString().isEmpty() || description.getText().toString().isEmpty()) {
+            if (pricing.isEmpty()) {
+                priceInputLayout.setError("Please enter a price.");
+            }
+            if (title.getText().toString().isEmpty()) {
+                titleinputlayout.setError("Please enter a title");
+            }
+            if (description.getText().toString().isEmpty()) {
+                descinputlayout.setError("Please enter a description");
+            }
         } else {
             //Toast.makeText(getContext(), "ArrayList = " + imageURLlist.size(), Toast.LENGTH_SHORT).show();
             if (imageURLlist.size() > 0) {

@@ -10,5 +10,6 @@
     <color name="background">#c2c2c2</color>
 
     <color name="button_pressed">#d1d1d1</color>
+    <color name="grey">#A0A0A0</color>
 
 </resources>

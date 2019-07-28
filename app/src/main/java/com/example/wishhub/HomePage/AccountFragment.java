@@ -60,7 +60,7 @@ public class AccountFragment extends Fragment {
         //mLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(mLayoutManager);
         postList = new ArrayList<>();
-        postAdapter = new PostAdpapter(getContext(), postList);
+        postAdapter = new PostAdpapter(getContext(), postList, 0);
         recyclerView.setAdapter(postAdapter);
 
         chatButton = view.findViewById(R.id.chatButton);

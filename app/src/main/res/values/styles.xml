@@ -13,6 +13,9 @@
 
     <style name="MenuStyle" parent="Theme.AppCompat.Light">
         <item name="android:background">@android:color/white</item>
+        <!-- Status bar stuff.-->
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -21,6 +24,9 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <!-- Status bar stuff.-->
+
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
 </resources>
