@@ -229,7 +229,7 @@ public class TradeFragment extends Fragment {
 
     private void uploadImage_10(){
         final String pricing = price.getText().toString().trim();
-        if (pricing.isEmpty() || title.getText().toString().isEmpty() || description.getText().toString().isEmpty() || item_meetup == true) {
+        if (pricing.isEmpty() || title.getText().toString().isEmpty() || description.getText().toString().isEmpty() || item_meetup == true && location.getText().toString().isEmpty() ) {
             if (pricing.isEmpty()) {
                 priceInputLayout.setError("Please enter a price.");
             }
