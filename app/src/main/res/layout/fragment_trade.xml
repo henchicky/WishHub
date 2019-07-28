@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomePage.TradeFragment">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/bar"
+        android:id="@+id/barrs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground">
@@ -26,169 +25,184 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Describe your listing"
+                    android:textColor="@android:color/black"
                     android:textSize="18sp"
-                    android:textColor="@color/colorPrimary" />
+                    android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/upload_multiple_images"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:text="Upload Image"
-                    android:id="@+id/upload_multiple_images"
-                    android:textSize="16sp"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    android:background="?android:selectableItemBackground"/>
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="?android:selectableItemBackground"
+                    android:text="Upload Image"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
 
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="335dp"
-        android:id="@+id/recyclerView_hor"
-        android:orientation="horizontal"
-        android:scrollbars="horizontal"
-        android:layout_below="@+id/bar"
-        android:background="@android:color/transparent">
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <ImageView
-        android:id="@+id/image_hide"
-        android:layout_width="match_parent"
-        android:layout_height="335dp"
-        android:padding="15dp"
-        android:src="@drawable/reg_btn_style"
-        android:layout_below="@+id/bar"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Uploaded Image"
-        android:layout_marginBottom="150dp"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/text_upload"
-        android:layout_alignBottom="@+id/recyclerView_hor"/>
-
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/recyclerView_hor"
-        android:padding="10dp">
+        android:layout_below="@+id/barrs">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tt1">
-            <com.google.android.material.textfield.TextInputEditText
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_hor"
                 android:layout_width="match_parent"
+                android:layout_height="335dp"
+                android:background="@android:color/transparent"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <ImageView
+                android:id="@+id/image_hide"
+                android:layout_width="match_parent"
+                android:layout_height="335dp"
+                android:layout_below="@+id/bar"
+                android:padding="15dp"
+                android:src="@drawable/reg_btn_style" />
+
+            <TextView
+                android:id="@+id/text_upload"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:hint="Listing Title"
-                android:id="@+id/title"
-                android:maxLines="1"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_alignBottom="@+id/recyclerView_hor"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="150dp"
+                android:text="Uploaded Image"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="100dp"
-            android:layout_below="@id/tt1"
-            android:id="@+id/tt2">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/description"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:gravity="bottom"
-                android:hint="Listing Description"
-                android:inputType="textShortMessage|textMultiLine|textCapSentences"
-                android:maxLength="5000"
-                android:maxLines="10"
-                android:scrollbars="vertical"
-                android:singleLine="false" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="match_parent"
+                android:layout_below="@+id/recyclerView_hor"
+                android:padding="10dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/priceinput"
-            android:hint="      Price"
-            android:layout_below="@id/tt2">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tt1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <com.example.wishhub.Miscellaneous.CurrencyEditText
-                android:id="@+id/price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:maxLines="1"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:hint="Listing Title"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:showText="false"
-            android:splitTrack="false"
-            android:text="Listing Condition: Item is new!"
-            android:checked="true"
-            android:layout_below="@+id/priceinput"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tt2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tt1"
+                    android:minHeight="100dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:gravity="bottom"
+                        android:hint="Listing Description"
+                        android:inputType="textShortMessage|textMultiLine|textCapSentences"
+                        android:maxLength="5000"
+                        android:maxLines="10"
+                        android:scrollbars="vertical"
+                        android:singleLine="false" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/priceinput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tt2"
+                    android:hint="      Price">
+
+                    <com.example.wishhub.Miscellaneous.CurrencyEditText
+                        android:id="@+id/price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Switch
+                    android:id="@+id/switch1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/priceinput"
+                    android:layout_marginTop="15dp"
+                    android:checked="true"
+                    android:showText="false"
+                    android:splitTrack="false"
+                    android:text="Listing Condition: Item is new!"
+                    android:layout_marginBottom="10dp"/>
 
 
-        <Switch
-            android:id="@+id/switch2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:showText="false"
-            android:splitTrack="false"
-            android:text="Meet-up"
-            android:checked="false"
-            android:layout_below="@+id/switch1"/>
+                <Switch
+                    android:id="@+id/switch2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/switch1"
+                    android:layout_marginTop="15dp"
+                    android:checked="true"
+                    android:showText="false"
+                    android:splitTrack="false"
+                    android:text="Meet-up: Available for meet-up" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tt5"
-            android:layout_below="@+id/switch2"
-            android:visibility="gone">
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:hint="Location"
-                android:id="@+id/location"
-                android:maxLines="1"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tt5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/switch2"
+                    android:visibility="visible">
 
-        <Switch
-            android:id="@+id/switch3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:showText="false"
-            android:splitTrack="false"
-            android:text="Mailing and Delivery"
-            android:checked="false"
-            android:layout_below="@+id/tt5"/>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/locationprod"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:hint="Location"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:layout_marginTop="15dp"
-            android:id="@+id/post"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:text="Post Listing"
-            android:layout_below="@+id/switch3"
-            android:background="@drawable/button_file"
-            android:textColor="@color/color3"
-            android:layout_centerHorizontal="true"/>
-    </RelativeLayout>
+                <Switch
+                    android:id="@+id/switch3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tt5"
+                    android:layout_marginTop="25dp"
+                    android:checked="true"
+                    android:showText="false"
+                    android:splitTrack="false"
+                    android:text="Mailing and Delivery: Yes" />
 
+                <Button
+                    android:id="@+id/post"
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/switch3"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/button_file"
+                    android:text="Post Listing"
+                    android:textColor="@color/color3" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

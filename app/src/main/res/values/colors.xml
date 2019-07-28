@@ -10,6 +10,11 @@
     <color name="background">#c2c2c2</color>
 
     <color name="button_pressed">#d1d1d1</color>
-    <color name="grey">#A0A0A0</color>
+    <color name="grey">#C2C2C2</color>
+    <color name="background_blue">#9CF7FF</color>
+    <color name="white_background">#FFFFFF</color>
+    <color name="pink_background">#FFA1CC</color>
+    <color name="green_background">#91FFBD</color>
+    <color name="purple_background">#DDA2FF</color>
 
 </resources>

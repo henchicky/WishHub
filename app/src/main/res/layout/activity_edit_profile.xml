@@ -25,15 +25,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <Button
+                <ImageView
+                    android:id="@+id/backtoprofile"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:src="@drawable/ic_backbtn"
+                    android:background="?android:selectableItemBackground"/>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_alignParentEnd="true"
-                    android:id="@+id/saveButton"
+                    android:text="Edit Profile"
+                    android:layout_toRightOf="@+id/backtoprofile"
+                    android:layout_marginLeft="35dp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"/>
+
+                <ImageView
+                    android:id="@+id/savesucc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/ic_tick"
-                    android:background="@android:color/transparent"
-                    android:layout_centerVertical="true"/>
+                    android:background="?android:selectableItemBackground"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"/>
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>

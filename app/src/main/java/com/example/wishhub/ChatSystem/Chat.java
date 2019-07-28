@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.wishhub.Authentication.User;
@@ -39,6 +41,7 @@ public class Chat extends AppCompatActivity implements UserAdapter.onNoteListene
     private FirebaseUser firebaseUser;
     private Context context;
     Toolbar toolbar;
+    private ImageView backhome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +51,14 @@ public class Chat extends AppCompatActivity implements UserAdapter.onNoteListene
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Inbox");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        backhome = findViewById(R.id.backhome);
+
+        backhome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         profileImage = findViewById(R.id.profile_image);

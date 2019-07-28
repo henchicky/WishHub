@@ -31,6 +31,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -60,17 +61,18 @@ public class TradeFragment extends Fragment {
     private Uri mImageUri, tempUri;
     private ImageButton deletepic;
     private TextView textty;
-    private TextInputLayout priceInputLayout, titleinputlayout, descinputlayout;
+    private TextInputLayout priceInputLayout, titleinputlayout, descinputlayout, locationlayout;
     ImageView hideimage;
 
     String miUrlOk = "";
     private StorageTask<UploadTask.TaskSnapshot> uploadTask;
     StorageReference storageRef;
     Button post;
-    EditText description, title;
+    TextInputEditText description, title, location;
     CurrencyEditText price;
-    Switch switch_condition;
+    Switch switch_condition, switch_meetup, switch_delivery;
     boolean item_condition = true;
+    boolean item_meetup, item_delivery;
     TextInputLayout priceinput;
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
@@ -114,16 +116,47 @@ public class TradeFragment extends Fragment {
         priceInputLayout = view.findViewById(R.id.priceinput);
         titleinputlayout = view.findViewById(R.id.tt1);
         descinputlayout = view.findViewById(R.id.tt2);
+        locationlayout = view.findViewById(R.id.tt5);
+        location = view.findViewById(R.id.locationprod);
         switch_condition = view.findViewById(R.id.switch1);
         switch_condition.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
+                if (isChecked) {
                     switch_condition.setText("Listing Condition: Item is new!");
                     item_condition = true;
                 } else {
                     switch_condition.setText("Listing Condition: Item is used!");
                     item_condition = false;
+                }
+            }
+        });
+        switch_meetup = view.findViewById(R.id.switch2);
+        switch_meetup.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    switch_meetup.setText("Meet-up: Available for meet-up");
+                    locationlayout.setVisibility(View.VISIBLE);
+                    item_meetup = true;
+                } else {
+                    item_meetup = false;
+                    switch_meetup.setText("Meet-up: Unavailable");
+                    locationlayout.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        switch_delivery = view.findViewById(R.id.switch3);
+        switch_delivery.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    item_delivery = true;
+                    switch_delivery.setText("Mailing and Delivery: Yes");
+                } else {
+                    item_delivery = false;
+                    switch_delivery.setText("Mailing and Delivery: No");
                 }
             }
         });
@@ -245,6 +278,9 @@ public class TradeFragment extends Fragment {
                                     hashMap.put("itemcondition", "" + item_condition);
                                     hashMap.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
                                     hashMap.put("uploaddate", date);
+                                    hashMap.put("mailing", item_delivery);
+                                    hashMap.put("location", location.getText().toString());
+                                    hashMap.put("meetup", item_meetup);
                                     reference.child(postid).setValue(hashMap);
 
                                     pd.dismiss();

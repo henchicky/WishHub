@@ -44,16 +44,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardview">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:id="@+id/likebtnchange"
                     android:src="@drawable/icloveempty"
                     android:background="?android:selectableItemBackground"
                     android:layout_alignParentEnd="true"/>
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:id="@+id/likebtnred"
                     android:src="@drawable/iclovefilled"
                     android:background="?android:selectableItemBackground"

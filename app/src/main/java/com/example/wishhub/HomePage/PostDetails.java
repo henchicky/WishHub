@@ -36,7 +36,7 @@ public class PostDetails extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private DatabaseReference reference;
     private Post post;
-    private ImageView image, heartRed, heartWhite;
+    private ImageView image, heartRed, heartWhite, backtohome;
     private static final DecelerateInterpolator DECCELERATE_INTERPOLATOR = new DecelerateInterpolator();
     private static final AccelerateInterpolator ACCELERATE_INTERPOLATOR = new AccelerateInterpolator();
 
@@ -60,6 +60,14 @@ public class PostDetails extends AppCompatActivity {
         image = findViewById(R.id.imageprod);
         condition = findViewById(R.id.conditionprod);
         price = findViewById(R.id.priceprod);
+        backtohome = findViewById(R.id.backtohome);
+
+        backtohome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         title.setText(post.getTitle());
         description.setText(post.getDescription());

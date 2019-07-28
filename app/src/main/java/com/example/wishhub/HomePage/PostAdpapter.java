@@ -221,4 +221,43 @@ public class PostAdpapter extends RecyclerView.Adapter<PostAdpapter.ImageViewHol
             }
         });
     }
+
+    private void isLiked(final String postid, final ImageView imageView){
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
+                .child("Likes").child(postid);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(firebaseUser.getUid()).exists()){
+                    //imageView.setImageResource(R.drawable.ic_liked);
+                    imageView.setTag("liked");
+                } else{
+                    //imageView.setImageResource(R.drawable.ic_like);
+                    imageView.setTag("like");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void nrLikes(final TextView likes, String postId){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Likes").child(postId);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                likes.setText(dataSnapshot.getChildrenCount()+" likes");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -45,7 +46,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingRight="5dp">
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp">
 
                     <TextView
                         android:id="@+id/titleprod"
@@ -65,7 +67,7 @@
                         android:layout_below="@+id/titleprod"
                         android:layout_marginLeft="5dp"
                         android:layout_marginBottom="15dp"
-                        android:src="@drawable/ic_date" />
+                        android:src="@drawable/clock" />
 
                     <TextView
                         android:id="@+id/dateprod"
@@ -74,8 +76,16 @@
                         android:layout_alignBottom="@+id/date_image"
                         android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/date_image"
-                        android:text="Uploaded Date"
+                        android:text="Uploaded Date by "
                         android:textColor="@android:color/black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="publisher"
+                        android:textColor="@color/color3"
+                        android:layout_alignBottom="@+id/date_image"
+                        android:layout_toRightOf="@id/dateprod" />
 
                     <ImageView
                         android:id="@+id/price_image"
@@ -84,7 +94,7 @@
                         android:layout_below="@+id/date_image"
                         android:layout_marginLeft="5dp"
                         android:layout_marginBottom="15dp"
-                        android:src="@drawable/ic_date" />
+                        android:src="@drawable/pricetag" />
 
                     <TextView
                         android:id="@+id/priceprod"
@@ -103,7 +113,7 @@
                         android:layout_below="@+id/price_image"
                         android:layout_marginLeft="5dp"
                         android:layout_marginBottom="15dp"
-                        android:src="@drawable/ic_favourite" />
+                        android:src="@drawable/likess" />
 
                     <TextView
                         android:id="@+id/likesprod"
@@ -112,7 +122,7 @@
                         android:layout_alignBottom="@+id/imageslikes"
                         android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/imageslikes"
-                        android:text="Num of likes"
+                        android:text="10 likes"
                         android:textColor="@android:color/black"/>
 
                     <ImageView
@@ -122,7 +132,7 @@
                         android:layout_below="@+id/imageslikes"
                         android:layout_marginLeft="5dp"
                         android:layout_marginBottom="15dp"
-                        android:src="@drawable/ic_description" />
+                        android:src="@drawable/descp" />
 
                     <TextView
                         android:id="@+id/descriptionprod"
@@ -140,9 +150,9 @@
                         android:layout_height="18dp"
                         android:layout_below="@+id/descriptionprod"
                         android:layout_marginLeft="5dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp"
-                        android:src="@drawable/ic_location"
-                        android:layout_marginTop="15dp"/>
+                        android:src="@drawable/worldwide_location" />
 
                     <TextView
                         android:id="@+id/locationprod"
@@ -173,56 +183,83 @@
                         android:text="Conditon"
                         android:textColor="@android:color/black"/>
 
-                    <ImageView
-                        android:id="@+id/likebtn"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                    <RelativeLayout
+                        android:layout_width="70dp"
+                        android:layout_height="47dp"
+                        android:background="@drawable/button_file"
                         android:layout_below="@+id/imagecondition"
                         android:layout_marginBottom="15dp"
-                        android:src="@drawable/icloveempty"
-                        android:background="@drawable/btn_layout"
-                        android:padding="3dp"
-                        android:layout_marginLeft="5dp"/>
+                        android:layout_toLeftOf="@+id/edit_btn">
 
-                    <ImageView
-                        android:id="@+id/likebtnred"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_below="@+id/imagecondition"
-                        android:layout_marginBottom="15dp"
-                        android:src="@drawable/iclovefilled"
-                        android:background="@drawable/btn_layout"
-                        android:padding="3dp"
-                        android:layout_marginLeft="5dp"
-                        android:visibility="gone"/>
+                        <ImageView
+                            android:id="@+id/likebtn"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/icloveempty"
+                            android:padding="3dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_toLeftOf="@+id/numoflikes"/>
+
+                        <ImageView
+                            android:id="@+id/likebtnred"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/iclovefilled"
+                            android:padding="3dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_toLeftOf="@+id/numoflikes"
+                            android:visibility="gone"/>
+
+                        <TextView
+                            android:id="@+id/numoflikes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12"
+                            android:textColor="@android:color/black"
+                            android:layout_marginTop="12dp"
+                            android:textSize="16dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="7dp"/>
+
+                    </RelativeLayout>
+
+                    <Button
+                        android:id="@+id/edit_btn"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/imagecondition"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/button_file"
+                        android:text="Edit"
+                        android:textColor="@color/color3"
+                        android:layout_centerHorizontal="true"/>
 
                     <Button
                         android:id="@+id/chatBtn1"
-                        android:layout_width="170dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/imagecondition"
                         android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@+id/likebtn"
+                        android:layout_toRightOf="@+id/edit_btn"
                         android:background="@drawable/button_file"
                         android:text="Chat"
                         android:textColor="@color/color3" />
 
-                    <Button
-                        android:id="@+id/edit_btn"
-                        android:layout_width="170dp"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/imagecondition"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@id/chatBtn1"
-                        android:background="@drawable/button_file"
-                        android:text="Edit"
-                        android:textColor="@color/color3"
-                        android:layout_marginRight="5dp"/>
+
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
         </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <ImageView
+        android:id="@+id/backtohome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:background="?android:selectableItemBackground"/>
 
 </RelativeLayout>

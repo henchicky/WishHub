@@ -23,6 +23,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:src="@drawable/ic_backbtn"
+                    android:background="?android:selectableItemBackground"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/backhome"
+                    android:layout_marginLeft="3dp"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -30,7 +39,9 @@
                     android:textColor="#333333"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/backhome"
+                    android:layout_marginLeft="35dp"/>
 
                 <androidx.appcompat.widget.SearchView
                     android:layout_width="wrap_content"

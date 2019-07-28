@@ -50,10 +50,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         viewPager.setPadding(70, 0, 70, 0);
 
         Integer[] colors_temp = {
-                getResources().getColor(R.color.color1),
-                getResources().getColor(R.color.color1),
-                getResources().getColor(R.color.color1),
-                getResources().getColor(R.color.color1)
+                getResources().getColor(R.color.pink_background),
+                getResources().getColor(R.color.background_blue),
+                getResources().getColor(R.color.purple_background),
+                getResources().getColor(R.color.green_background)
         };
 
         colors = colors_temp;

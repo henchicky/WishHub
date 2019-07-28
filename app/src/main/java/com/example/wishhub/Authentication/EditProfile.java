@@ -18,6 +18,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -59,7 +60,7 @@ public class EditProfile extends AppCompatActivity {
     private DatabaseReference reference;
     private StorageTask<UploadTask.TaskSnapshot> uploadTask;
     private TextInputEditText editname, editemail, editbio;
-    private Button saveBtn;
+    private ImageView saveBtn, backtoprofile;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -74,7 +75,8 @@ public class EditProfile extends AppCompatActivity {
         editname = findViewById(R.id.edit_name);
         editemail = findViewById(R.id.edit_email);
         editbio = findViewById(R.id.edit_bio);
-        saveBtn = findViewById(R.id.saveButton);
+        saveBtn = findViewById(R.id.savesucc);
+        backtoprofile = findViewById(R.id.backtoprofile);
 
         editemail.setFocusable(false);
         reference.addValueEventListener(new ValueEventListener() {
@@ -92,6 +94,13 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
+        backtoprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,14 +109,14 @@ public class EditProfile extends AppCompatActivity {
                 hashMap.put("bio", editbio.getText().toString());
                 reference.updateChildren(hashMap);
                 Toast.makeText(EditProfile.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
 
         profilepic = findViewById(R.id.profile_my_image);
+
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Edit Toolbar");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         deactivateaccount = findViewById(R.id.deactivate_account);
         progressBar = findViewById(R.id.progress_barrr);
@@ -182,14 +191,13 @@ public class EditProfile extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
                 AlertDialog.Builder dialog = new AlertDialog.Builder(EditProfile.this);
                 dialog.setTitle("Are you sure?");
                 dialog.setMessage("Logging out of your account will not allow you to continue to enjoy WishHub's services!");
                 dialog.setPositiveButton("Log out!", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        progressBar.setVisibility(View.VISIBLE);
                         FirebaseAuth.getInstance().signOut();
                         Toast.makeText(getApplicationContext(), "Logged out successfully!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext().getApplicationContext(), SplashScreenActivity.class);
@@ -202,6 +210,8 @@ public class EditProfile extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        progressBar.setVisibility(View.INVISIBLE);
+
                     }
                 });
                 AlertDialog alertDialog = dialog.create();
