@@ -5,9 +5,6 @@ Try WishHub now!
 
 Instructions:
 
-Android user:
-You can download WishHub apk file, and install it directly on your Android phone, sorry iPhone users.
-
 Others:
 1) git clone https://github.com/henchicky/WishHub.git
 
