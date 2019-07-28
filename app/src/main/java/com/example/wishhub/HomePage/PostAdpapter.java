@@ -73,9 +73,35 @@ public class PostAdpapter extends RecyclerView.Adapter<PostAdpapter.ImageViewHol
 
         final AnimatorSet animationSet =  new AnimatorSet();
 
+        //check if post is liked or not
+        DatabaseReference reff = FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostid());
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(firebaseUser.getUid()).exists()){
+                    holder.heartRed.setVisibility(View.VISIBLE);
+                    holder.heartWhite.setVisibility(View.GONE);
+                    holder.heartRed.setTag("liked");
+                } else{
+                    holder.heartRed.setVisibility(View.GONE);
+                    holder.heartWhite.setVisibility(View.VISIBLE);
+                    holder.heartRed.setTag("like");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         holder.heartRed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostid())
+                        .child(firebaseUser.getUid()).removeValue();
+
                 if (holder.heartRed.getVisibility() == View.VISIBLE) {
                     holder.heartRed.setScaleX(0.1f);
                     holder.heartRed.setScaleY(0.1f);
@@ -90,22 +116,6 @@ public class PostAdpapter extends RecyclerView.Adapter<PostAdpapter.ImageViewHol
 
                     holder.heartRed.setVisibility(View.GONE);
                     holder.heartWhite.setVisibility(View.VISIBLE);
-
-                    animationSet.playTogether(scaleDownY, scaleDownX);
-                } else if (holder.heartRed.getVisibility() == View.GONE) {
-                    holder.heartRed.setScaleX(0.1f);
-                    holder.heartRed.setScaleY(0.1f);
-
-                    ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(holder.heartRed, "scaleY", 0.1f, 1f);
-                    scaleDownY.setDuration(300);
-                    scaleDownY.setInterpolator(DECCELERATE_INTERPOLATOR);
-
-                    ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(holder.heartRed, "scaleX", 0.1f, 1f);
-                    scaleDownX.setDuration(300);
-                    scaleDownX.setInterpolator(DECCELERATE_INTERPOLATOR);
-
-                    holder.heartRed.setVisibility(View.VISIBLE);
-                    holder.heartWhite.setVisibility(View.GONE);
 
                     animationSet.playTogether(scaleDownY, scaleDownX);
                 }
@@ -116,23 +126,11 @@ public class PostAdpapter extends RecyclerView.Adapter<PostAdpapter.ImageViewHol
         holder.heartWhite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (holder.heartRed.getVisibility() == View.VISIBLE) {
-                    holder.heartRed.setScaleX(0.1f);
-                    holder.heartRed.setScaleY(0.1f);
 
-                    ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(holder.heartRed, "scaleY", 1f, 0f);
-                    scaleDownY.setDuration(300);
-                    scaleDownY.setInterpolator(ACCELERATE_INTERPOLATOR);
+                FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostid())
+                        .child(firebaseUser.getUid()).setValue(true);
 
-                    ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(holder.heartRed, "scaleX", 1f, 0f);
-                    scaleDownX.setDuration(300);
-                    scaleDownX.setInterpolator(ACCELERATE_INTERPOLATOR);
-
-                    holder.heartRed.setVisibility(View.GONE);
-                    holder.heartWhite.setVisibility(View.VISIBLE);
-
-                    animationSet.playTogether(scaleDownY, scaleDownX);
-                } else if (holder.heartRed.getVisibility() == View.GONE) {
+                if (holder.heartRed.getVisibility() == View.GONE) {
                     holder.heartRed.setScaleX(0.1f);
                     holder.heartRed.setScaleY(0.1f);
 
@@ -180,8 +178,8 @@ public class PostAdpapter extends RecyclerView.Adapter<PostAdpapter.ImageViewHol
             image_profile = itemView.findViewById(R.id.image_profile);
             username = itemView.findViewById(R.id.username);
             post_image = itemView.findViewById(R.id.post_image);
-            heartRed = itemView.findViewById(R.id.likebtnchange);
-            heartWhite = itemView.findViewById(R.id.likebtnred);
+            heartRed = itemView.findViewById(R.id.likebtnred);
+            heartWhite = itemView.findViewById(R.id.likebtnchange);
             publisher = itemView.findViewById(R.id.publisher);
             title = itemView.findViewById(R.id.title);
             price = itemView.findViewById(R.id.price);

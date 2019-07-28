@@ -80,6 +80,7 @@
                         android:textColor="@android:color/black"/>
 
                     <TextView
+                        android:id="@+id/publisherprod"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="publisher"
@@ -145,49 +146,62 @@
                         android:textColor="@android:color/black" />
 
                     <ImageView
-                        android:id="@+id/imagelocation"
+                        android:id="@+id/imagecondition"
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:layout_below="@+id/descriptionprod"
                         android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="15dp"
                         android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:src="@drawable/worldwide_location" />
-
-                    <TextView
-                        android:id="@+id/locationprod"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/imagelocation"
-                        android:layout_marginLeft="15dp"
-                        android:layout_toRightOf="@+id/imagelocation"
-                        android:text="Location"
-                        android:textColor="@android:color/black"/>
-
-                    <ImageView
-                        android:id="@+id/imagecondition"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_below="@+id/imagelocation"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginBottom="15dp"
                         android:src="@drawable/ic_conditon" />
 
                     <TextView
                         android:id="@+id/conditionprod"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/imagecondition"
-                        android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/imagecondition"
+                        android:layout_marginLeft="15dp"
+                        android:layout_alignBottom="@+id/imagecondition"
                         android:text="Conditon"
                         android:textColor="@android:color/black"/>
+
+
+                    <ImageView
+                        android:id="@+id/imagelocation"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_below="@+id/imagecondition"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/worldwide_location" />
+
+                    <TextView
+                        android:id="@+id/gettingtheretext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="GETTING THERE"
+                        android:textColor="@android:color/black"
+                        android:layout_alignBottom="@+id/imagelocation"
+                        android:layout_marginLeft="15dp"
+                        android:layout_toRightOf="@+id/imagelocation"/>
+
+                    <TextView
+                        android:id="@+id/locationprod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/gettingtheretext"
+                        android:layout_marginLeft="15dp"
+                        android:layout_toRightOf="@+id/imagelocation"
+                        android:text="Location"
+                        android:textColor="@android:color/black"
+                        android:layout_marginBottom="15dp"/>
+
 
                     <RelativeLayout
                         android:layout_width="70dp"
                         android:layout_height="47dp"
                         android:background="@drawable/button_file"
-                        android:layout_below="@+id/imagecondition"
+                        android:layout_below="@+id/locationprod"
                         android:layout_marginBottom="15dp"
                         android:layout_toLeftOf="@+id/edit_btn">
 
@@ -227,7 +241,7 @@
                         android:id="@+id/edit_btn"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/imagecondition"
+                        android:layout_below="@id/locationprod"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/button_file"
                         android:text="Edit"
@@ -238,7 +252,7 @@
                         android:id="@+id/chatBtn1"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/imagecondition"
+                        android:layout_below="@+id/locationprod"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@+id/edit_btn"
                         android:background="@drawable/button_file"

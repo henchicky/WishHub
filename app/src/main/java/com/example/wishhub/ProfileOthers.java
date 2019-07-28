@@ -1,33 +1,29 @@
-package com.example.wishhub.HomePage;
+package com.example.wishhub;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.wishhub.Authentication.EditProfile;
 import com.example.wishhub.Authentication.User;
 import com.example.wishhub.ChatSystem.Chat;
-import com.example.wishhub.R;
-import com.example.wishhub.SplashScreen.SplashScreenActivity;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.wishhub.HomePage.Post;
+import com.example.wishhub.HomePage.PostAdpapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,95 +40,86 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MyProfileFragment extends Fragment {
+public class ProfileOthers extends AppCompatActivity {
 
-    private Button logout;
-    private FloatingActionButton editprofile ;
+    private static final String TAG = "Profile Others";
+    private String userid;
+    private DatabaseReference reference;
     private CircleImageView your_pic;
-    private TextView accountname, joindate, bio;
+    private TextView accountname, joindate, bio, mylistingtext;
     private FirebaseUser firebaseUser;
     private ImageButton chatButton;
     private static final int IMAGE_REQUEST = 1;
     private Uri imageUri;
     private StorageTask uploadTask;
     private StorageReference storageReference;
-    private DatabaseReference reference;
     private RecyclerView recyclerView;
     private List<Post> postList;
     private PostAdpapter postAdapter;
     private ProgressBar progress_circular;
-
-    public MyProfileFragment() {
-        // Required empty public constructor
-    }
+    private ImageView backlogo;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile_others);
 
-        View view = inflater.inflate(R.layout.fragment_myprofile, container, false);
+        Intent intent = getIntent();
+        userid = intent.getStringExtra("userid");
+        Log.d(TAG, "userid: " + userid);
 
-        recyclerView = view.findViewById(R.id.recycler_view_profile_page);
+        recyclerView = findViewById(R.id.recycler_view_profile_page);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
-        // mLayoutManager.setReverseLayout(true);
+        LinearLayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
 
         postList = new ArrayList<>();
-        postAdapter = new PostAdpapter(getContext(), postList, 1);
+        postAdapter = new PostAdpapter(getApplicationContext(), postList, 1);
         recyclerView.setAdapter(postAdapter);
-        progress_circular = view.findViewById(R.id.progress_circular);
-        bio = view.findViewById(R.id.profilebio);
+        progress_circular = findViewById(R.id.progress_circular);
+        bio = findViewById(R.id.profilebio);
+        backlogo = findViewById(R.id.logo);
+        backlogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         storageReference = FirebaseStorage.getInstance().getReference("users_photos");
-        reference = FirebaseDatabase.getInstance().getReference("users_names").child(firebaseUser.getUid());
 
-        your_pic = view.findViewById(R.id.your_pic);
+        your_pic = findViewById(R.id.your_pic);
+        accountname = findViewById(R.id.account_name);
+        joindate = findViewById(R.id.joindate);
+        mylistingtext = findViewById(R.id.mylistingtext);
 
-        reference = FirebaseDatabase.getInstance().getReference()
-                .child("users_names").child(firebaseUser.getUid());
-
-        accountname = view.findViewById(R.id.account_name);
-        joindate = view.findViewById(R.id.joindate);
+        reference = FirebaseDatabase.getInstance().getReference("users_names").child(userid);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                if (isAdded()){
-                    //Load image if the fragment is currently added to its activity.
-                    User user = dataSnapshot.getValue(User.class);
-                    accountname.setText(user.getName());
-                    joindate.setText(user.getJoindate());
-                    bio.setText(user.getBio());
-                    if (user.getImageURL().equals("default")){
-                        your_pic.setImageResource(R.mipmap.ic_launcher);
-                    } else {
-                        Glide.with(getContext()).load(user.getImageURL()).into(your_pic);
-                    }
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                accountname.setText(user.getName());
+                mylistingtext.setText(user.getName().toUpperCase() + "'S LISTING");
+                joindate.setText(user.getJoindate());
+                bio.setText(user.getBio());
+                if (user.getImageURL().equals("default")){
+                    your_pic.setImageResource(R.mipmap.ic_launcher);
+                } else {
+                    Glide.with(getApplicationContext()).load(user.getImageURL()).into(your_pic);
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
-        editprofile = view.findViewById(R.id.editPofile);
-        editprofile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), EditProfile.class));
-            }
-        });
-
-        chatButton = view.findViewById(R.id.chatButton);
+        chatButton = findViewById(R.id.chatButton);
         chatButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
                         ImageButton view = (ImageButton) v;
@@ -141,7 +128,7 @@ public class MyProfileFragment extends Fragment {
                         break;
                     }
                     case MotionEvent.ACTION_UP:
-                        startActivity(new Intent(getContext(), Chat.class));
+                        startActivity(new Intent(getApplicationContext(), Chat.class));
                     case MotionEvent.ACTION_CANCEL: {
                         ImageButton view = (ImageButton) v;
                         view.getBackground().clearColorFilter();
@@ -154,7 +141,6 @@ public class MyProfileFragment extends Fragment {
         });
 
         readPosts();
-        return view;
     }
 
     private void readPosts(){
@@ -167,7 +153,7 @@ public class MyProfileFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Post post = snapshot.getValue(Post.class);
                     //only see your own post in profile page
-                    if (post.getPublisher().equals(firebaseUser.getUid())){
+                    if (post.getPublisher().equals(userid)){
                         postList.add(post);
                     }
                 }

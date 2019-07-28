@@ -34,7 +34,9 @@
                     android:id="@+id/post_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_constraintDimensionRatio="1:1"/>
+                    app:layout_constraintDimensionRatio="1:1" />
+
+
             </androidx.cardview.widget.CardView>
 
             <RelativeLayout
@@ -123,7 +125,9 @@
             android:text="Uploaded date"
             android:layout_marginTop="5dp"
             android:layout_marginStart="7dp"
-            android:id="@+id/uploadeddate"/>
+            android:id="@+id/uploadeddate"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/gradient_layout"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

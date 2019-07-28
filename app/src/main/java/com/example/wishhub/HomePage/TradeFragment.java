@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wishhub.Authentication.User;
 import com.example.wishhub.Miscellaneous.CurrencyEditText;
 import com.example.wishhub.R;
 import com.google.android.gms.tasks.Continuation;
@@ -34,8 +36,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -54,6 +60,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class TradeFragment extends Fragment {
 
+    private static final String TAG = "Trade Fragment";
     private ArrayList<ImageUri> imageURLlist;
     private RecyclerView mRecyclerView;
     private ImageAdapter mAdapter;
@@ -78,6 +85,8 @@ public class TradeFragment extends Fragment {
     private SimpleDateFormat dateFormat;
     private String date;
     private static List<String> listOfUrl;
+    private FirebaseUser firebaseUser;
+    private DatabaseReference reference, secondref;
 
     public TradeFragment() {
         // Required empty public constructor
@@ -92,6 +101,9 @@ public class TradeFragment extends Fragment {
         deletepic = view.findViewById(R.id.delete_image);
         mRecyclerView = view.findViewById(R.id.recyclerView_hor);
         mRecyclerView.setHasFixedSize(true);
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        secondref = FirebaseDatabase.getInstance().getReference("users_names").child(firebaseUser.getUid());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -217,7 +229,7 @@ public class TradeFragment extends Fragment {
 
     private void uploadImage_10(){
         final String pricing = price.getText().toString().trim();
-        if (pricing.isEmpty() || title.getText().toString().isEmpty() || description.getText().toString().isEmpty()) {
+        if (pricing.isEmpty() || title.getText().toString().isEmpty() || description.getText().toString().isEmpty() || item_meetup == true) {
             if (pricing.isEmpty()) {
                 priceInputLayout.setError("Please enter a price.");
             }
@@ -227,6 +239,9 @@ public class TradeFragment extends Fragment {
             if (description.getText().toString().isEmpty()) {
                 descinputlayout.setError("Please enter a description");
             }
+            if (location.getText().toString().isEmpty()) {
+                locationlayout.setError("Please enter a preferred location");
+            }
         } else {
             //Toast.makeText(getContext(), "ArrayList = " + imageURLlist.size(), Toast.LENGTH_SHORT).show();
             if (imageURLlist.size() > 0) {
@@ -234,12 +249,26 @@ public class TradeFragment extends Fragment {
                 pd.setMessage("Posting");
                 pd.show();
 
-                if (imageURLlist.size() == 1) {
+                if (imageURLlist.size() > 0) {
                     //1st image
                     final StorageReference fileReference = storageRef.child(System.currentTimeMillis()
                             + "." + getFileExtension(imageURLlist.get(0).getImageUri()));
 
                     uploadTask = fileReference.putFile(imageURLlist.get(0).getImageUri());
+
+                    secondref.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            User user = dataSnapshot.getValue(User.class);
+                            GetName.namevar = user.getName();
+                            Log.d(TAG, "onDataChange: TradeFragment: " + GetName.namevar);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
 
                     Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                         @Override
@@ -263,7 +292,7 @@ public class TradeFragment extends Fragment {
                                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
                                     String postid = reference.push().getKey();
 
-                                    HashMap<String, Object> hashMap = new HashMap<>();
+                                    final HashMap<String, Object> hashMap = new HashMap<>();
                                     hashMap.put("postid", postid);
 
                                     //put in a list of urls
@@ -278,11 +307,12 @@ public class TradeFragment extends Fragment {
                                     hashMap.put("itemcondition", "" + item_condition);
                                     hashMap.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
                                     hashMap.put("uploaddate", date);
-                                    hashMap.put("mailing", item_delivery);
+                                    hashMap.put("mailing", "" + item_delivery);
                                     hashMap.put("location", location.getText().toString());
-                                    hashMap.put("meetup", item_meetup);
-                                    reference.child(postid).setValue(hashMap);
+                                    hashMap.put("meetup", "" + item_meetup);
+                                    hashMap.put("name", GetName.namevar);
 
+                                    reference.child(postid).setValue(hashMap);
                                     pd.dismiss();
                                     Toast.makeText(getContext(), "Uploaded Successfully", Toast.LENGTH_SHORT).show();
                                 }
