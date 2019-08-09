@@ -51,7 +51,6 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="6dp"
                     android:background="?android:selectableItemBackground"
                     android:src="@drawable/icloveempty" />
 
@@ -70,7 +69,8 @@
                     android:id="@+id/title"
                     android:text="title"
                     android:textStyle="bold"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black"
+                    android:textSize="13dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -79,7 +79,8 @@
                     android:textStyle="bold"
                     android:text="$XXX"
                     android:layout_below="@+id/title"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black"
+                    android:textSize="13dp"/>
 
                 <TextView
                     android:id="@+id/condition"
@@ -87,11 +88,12 @@
                     android:layout_height="wrap_content"
                     android:text=" ~ New"
                     android:layout_toEndOf="@+id/price"
-                    android:layout_below="@+id/title"/>
+                    android:layout_below="@+id/title"
+                    android:textSize="13dp"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="17dp"
-                    android:layout_height="17dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_marginTop="1dp"
                     android:id="@+id/image_profile"
                     android:layout_below="@+id/price"
@@ -100,12 +102,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="7dp"
                     android:id="@+id/publisher"
                     android:text="publisher"
                     android:layout_below="@+id/price"
                     android:layout_toEndOf="@+id/image_profile"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black"
+                    android:textSize="13dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -127,7 +130,8 @@
             android:layout_marginStart="7dp"
             android:id="@+id/uploadeddate"
             android:textColor="#FFFFFF"
-            android:background="@drawable/gradient_layout"/>
+            android:background="@drawable/gradient_layout"
+            android:textSize="13dp"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

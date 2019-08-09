@@ -49,7 +49,7 @@ public class MyProfileFragment extends Fragment {
     private Button logout;
     private FloatingActionButton editprofile ;
     private CircleImageView your_pic;
-    private TextView accountname, joindate, bio;
+    private TextView accountname, joindate, bio, numOfPosts;
     private FirebaseUser firebaseUser;
     private ImageButton chatButton;
     private static final int IMAGE_REQUEST = 1;
@@ -84,6 +84,7 @@ public class MyProfileFragment extends Fragment {
         recyclerView.setAdapter(postAdapter);
         progress_circular = view.findViewById(R.id.progress_circular);
         bio = view.findViewById(R.id.profilebio);
+        numOfPosts = view.findViewById(R.id.t5);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         storageReference = FirebaseStorage.getInstance().getReference("users_photos");
@@ -154,7 +155,31 @@ public class MyProfileFragment extends Fragment {
         });
 
         readPosts();
+        numOfPosts();
         return view;
+    }
+
+    private void numOfPosts() {
+        GetName.number_posts = 0;
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Posts");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Post post = snapshot.getValue(Post.class);
+                    //only see your own post in profile page
+                    if (post.getPublisher().equals(firebaseUser.getUid())){
+                        GetName.number_posts++;
+                    }
+                }
+                numOfPosts.setText(GetName.number_posts + "");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void readPosts(){
@@ -171,6 +196,7 @@ public class MyProfileFragment extends Fragment {
                         postList.add(post);
                     }
                 }
+
                 postAdapter.notifyDataSetChanged();
                 progress_circular.setVisibility(View.GONE);
             }

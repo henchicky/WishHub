@@ -156,6 +156,7 @@ public class PostAdpapter extends RecyclerView.Adapter<PostAdpapter.ImageViewHol
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, PostDetails.class);
                 intent.putExtra("post_details", post);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             }
         });

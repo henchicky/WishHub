@@ -208,6 +208,9 @@ public class PostDetails extends AppCompatActivity {
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), EmptyPostActivity.class);
+                intent.putExtra("edit_post_details", post);
+                startActivity(intent);
                 Toast.makeText(PostDetails.this, "Edit Post", Toast.LENGTH_SHORT).show();
             }
         });

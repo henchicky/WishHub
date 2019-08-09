@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.wishhub.Authentication.User;
 import com.example.wishhub.ChatSystem.Chat;
+import com.example.wishhub.HomePage.GetName;
 import com.example.wishhub.HomePage.Post;
 import com.example.wishhub.HomePage.PostAdpapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,7 +47,7 @@ public class ProfileOthers extends AppCompatActivity {
     private String userid;
     private DatabaseReference reference;
     private CircleImageView your_pic;
-    private TextView accountname, joindate, bio, mylistingtext;
+    private TextView accountname, joindate, bio, mylistingtext, numOfPosts;
     private FirebaseUser firebaseUser;
     private ImageButton chatButton;
     private static final int IMAGE_REQUEST = 1;
@@ -93,6 +94,7 @@ public class ProfileOthers extends AppCompatActivity {
         accountname = findViewById(R.id.account_name);
         joindate = findViewById(R.id.joindate);
         mylistingtext = findViewById(R.id.mylistingtext);
+        numOfPosts = findViewById(R.id.tnumofPosts);
 
         reference = FirebaseDatabase.getInstance().getReference("users_names").child(userid);
         reference.addValueEventListener(new ValueEventListener() {
@@ -141,6 +143,30 @@ public class ProfileOthers extends AppCompatActivity {
         });
 
         readPosts();
+        numOfPosts();
+    }
+
+    private void numOfPosts() {
+        GetName.number_posts = 0;
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Posts");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Post post = snapshot.getValue(Post.class);
+                    //only see your own post in profile page
+                    if (post.getPublisher().equals(userid)){
+                        GetName.number_posts++;
+                    }
+                }
+                numOfPosts.setText(GetName.number_posts + "");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void readPosts(){

@@ -59,6 +59,7 @@ public class ChatRoom extends AppCompatActivity {
     private APIService apiService;
     private DatabaseReference reference;
     boolean notify = false;
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,8 @@ public class ChatRoom extends AppCompatActivity {
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         btn_send = findViewById(R.id.sendButton);
         final EditText text_send = findViewById(R.id.messageArea);
@@ -99,6 +102,23 @@ public class ChatRoom extends AppCompatActivity {
                     map2.put("message", text_send.getText().toString());
 
                     root.child("Chats").push().setValue(map2);
+
+                    final DatabaseReference chatref = FirebaseDatabase.getInstance().getReference("Chatlist")
+                            .child(firebaseUser.getUid()).child(name);
+
+                    chatref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (!dataSnapshot.exists()) {
+                                chatref.child("id").setValue(name);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                     text_send.getText().clear();
                 }
             }

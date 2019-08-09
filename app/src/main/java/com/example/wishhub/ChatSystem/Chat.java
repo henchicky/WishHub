@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Chat extends AppCompatActivity implements UserAdapter.onNoteListener {
 
     private static final String TAG = "Chat";
-    private DatabaseReference root;
+    private DatabaseReference root, reference;
     private UserAdapter userAdapter;
     private List<User> list_of_users = new ArrayList<>();
     private CircleImageView profileImage;
@@ -42,11 +43,15 @@ public class Chat extends AppCompatActivity implements UserAdapter.onNoteListene
     private Context context;
     Toolbar toolbar;
     private ImageView backhome;
+    private List<Chatlist> usersList;
+    RecyclerView messageList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        usersList = new ArrayList<>();
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Inbox");
@@ -64,31 +69,27 @@ public class Chat extends AppCompatActivity implements UserAdapter.onNoteListene
         profileImage = findViewById(R.id.profile_image);
         profileName = findViewById(R.id.username);
 
-        final RecyclerView messageList = findViewById(R.id.messageList);
+        messageList = findViewById(R.id.messageList);
         messageList.setHasFixedSize(true);
         messageList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        //messageList.setAdapter(new UserAdapter(Chat.this, list_of_users, (UserAdapter.onNoteListener) context, true));
         context = this;
 
-        root = FirebaseDatabase.getInstance().getReference("users_names");
-
-        root.addValueEventListener(new ValueEventListener() {
+        reference = FirebaseDatabase.getInstance().getReference("Chatlist").child(firebaseUser.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                list_of_users.clear();
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    User user = snapshot.getValue(User.class);
-                    assert user != null;
-                    assert firebaseUser != null;
-                    if (!firebaseUser.getUid().equals(user.getId())) {
-                        list_of_users.add(user);
-                    }
+                usersList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Chatlist chatlist = snapshot.getValue(Chatlist.class);
+                    usersList.add(chatlist);
                 }
-                userAdapter = new UserAdapter(Chat.this, list_of_users, (UserAdapter.onNoteListener) context, true);
-                messageList.setAdapter(userAdapter);
-                userAdapter.notifyDataSetChanged();
+                chatList();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 
@@ -107,5 +108,32 @@ public class Chat extends AppCompatActivity implements UserAdapter.onNoteListene
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
         Token token1 = new Token(token);
         reference.child(firebaseUser.getUid()).setValue(token1);
+    }
+
+    private void chatList() {
+        list_of_users = new ArrayList<>();
+        reference = FirebaseDatabase.getInstance().getReference("users_names");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list_of_users.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
+                    for (Chatlist chatlist : usersList) {
+                        if (user.getId().equals(chatlist.getId())) {
+                            list_of_users.add(user);
+                        }
+                    }
+                }
+                userAdapter = new UserAdapter(Chat.this, list_of_users, (UserAdapter.onNoteListener) context, true);
+                messageList.setAdapter(userAdapter);
+                userAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
