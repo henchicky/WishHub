@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.wishhub.ChatSystem.Chat;
@@ -40,7 +41,7 @@ public class AccountFragment extends Fragment {
 
     private List<String> followingList;
     ProgressBar progress_circular;
-    ImageButton chatButton;
+    ImageView chatButton;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -64,27 +65,10 @@ public class AccountFragment extends Fragment {
         recyclerView.setAdapter(postAdapter);
 
         chatButton = view.findViewById(R.id.chatButton);
-        chatButton.setOnTouchListener(new View.OnTouchListener() {
+        chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        ImageButton view = (ImageButton) v;
-                        view.getBackground().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-                        v.invalidate();
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP:
-                        startActivity(new Intent(getContext(), Chat.class));
-                    case MotionEvent.ACTION_CANCEL: {
-                        ImageButton view = (ImageButton) v;
-                        view.getBackground().clearColorFilter();
-                        view.invalidate();
-                        break;
-                    }
-                }
-                return true;
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), Chat.class));
             }
         });
 

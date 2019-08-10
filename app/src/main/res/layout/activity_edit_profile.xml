@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Authentication.EditProfile"
-    android:padding="8dp">
+    tools:context=".Authentication.EditProfile">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/bar"
@@ -27,10 +26,12 @@
 
                 <ImageView
                     android:id="@+id/backtoprofile"
-                    android:layout_width="17dp"
-                    android:layout_height="17dp"
+                    android:layout_width="37dp"
+                    android:layout_height="37dp"
                     android:src="@drawable/ic_backbtn"
-                    android:background="?android:selectableItemBackground"/>
+                    android:background="?android:selectableItemBackground"
+                    android:padding="10dp"
+                    android:layout_centerVertical="true"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -40,20 +41,28 @@
                     android:layout_marginLeft="35dp"
                     android:textStyle="bold"
                     android:textSize="16sp"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@android:color/black"
+                    android:layout_centerVertical="true"/>
 
                 <ImageView
                     android:id="@+id/savesucc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_tick"
+                    android:padding="10dp"
                     android:background="?android:selectableItemBackground"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp"/>
+                    android:layout_marginRight="10dp"/>
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/bar"
+        android:padding="8dp">
 
     <TextView
         android:id="@+id/t7"
@@ -77,7 +86,6 @@
         android:layout_height="100dp"
         android:id="@+id/profile_my_image"
         android:src="@drawable/userphoto"
-        android:layout_below="@id/bar"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"/>
 
@@ -140,7 +148,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/profile_email"
         android:layout_below="@+id/profile_email"
-        android:id="@+id/tbio">
+        android:id="@+id/tbio"
+        android:layout_marginTop="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -186,6 +195,8 @@
         android:layout_above="@+id/change_password"
         android:visibility="invisible"
         android:id="@+id/progress_barrr"/>
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

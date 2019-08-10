@@ -228,5 +228,8 @@ public class PostDetails extends AppCompatActivity {
         if (firebaseUser.getUid().equals(post.getPublisher())) {
             chatBtn.setVisibility(View.GONE);
         }
+        if (!firebaseUser.getUid().equals(post.getPublisher())) {
+            editBtn.setVisibility(View.GONE);
+        }
     }
 }

@@ -49,7 +49,6 @@ public class ProfileOthers extends AppCompatActivity {
     private CircleImageView your_pic;
     private TextView accountname, joindate, bio, mylistingtext, numOfPosts;
     private FirebaseUser firebaseUser;
-    private ImageButton chatButton;
     private static final int IMAGE_REQUEST = 1;
     private Uri imageUri;
     private StorageTask uploadTask;
@@ -58,7 +57,7 @@ public class ProfileOthers extends AppCompatActivity {
     private List<Post> postList;
     private PostAdpapter postAdapter;
     private ProgressBar progress_circular;
-    private ImageView backlogo;
+    private ImageView backlogo, chatButton;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -119,26 +118,10 @@ public class ProfileOthers extends AppCompatActivity {
         });
 
         chatButton = findViewById(R.id.chatButton);
-        chatButton.setOnTouchListener(new View.OnTouchListener() {
+        chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        ImageButton view = (ImageButton) v;
-                        view.getBackground().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-                        v.invalidate();
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP:
-                        startActivity(new Intent(getApplicationContext(), Chat.class));
-                    case MotionEvent.ACTION_CANCEL: {
-                        ImageButton view = (ImageButton) v;
-                        view.getBackground().clearColorFilter();
-                        view.invalidate();
-                        break;
-                    }
-                }
-                return true;
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Chat.class));
             }
         });
 

@@ -199,12 +199,13 @@
 
 
                     <RelativeLayout
+                        android:id="@+id/container_like"
                         android:layout_width="70dp"
                         android:layout_height="47dp"
                         android:background="@drawable/button_file"
                         android:layout_below="@+id/locationprod"
                         android:layout_marginBottom="15dp"
-                        android:layout_toLeftOf="@+id/edit_btn">
+                        android:layout_centerHorizontal="true">
 
                         <ImageView
                             android:id="@+id/likebtn"
@@ -234,7 +235,8 @@
                             android:layout_marginTop="12dp"
                             android:textSize="16dp"
                             android:layout_alignParentRight="true"
-                            android:layout_marginRight="7dp"/>
+                            android:layout_marginRight="7dp"
+                            android:layout_marginLeft="3dp"/>
 
                     </RelativeLayout>
 
@@ -247,7 +249,8 @@
                         android:background="@drawable/button_file"
                         android:text="Edit"
                         android:textColor="@color/color3"
-                        android:layout_centerHorizontal="true"/>
+                        android:layout_toRightOf="@+id/container_like"
+                        />
 
                     <Button
                         android:id="@+id/chatBtn1"
@@ -255,10 +258,10 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/locationprod"
                         android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@+id/edit_btn"
                         android:background="@drawable/button_file"
                         android:text="Chat"
-                        android:textColor="@color/color3" />
+                        android:textColor="@color/color3"
+                        android:layout_toRightOf="@+id/container_like"/>
 
 
                 </RelativeLayout>
@@ -270,11 +273,11 @@
 
     <ImageView
         android:id="@+id/backtohome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_back"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:src="@drawable/ic_backbtn"
         android:padding="10dp"
         android:layout_margin="10dp"
-        android:background="?android:selectableItemBackground"/>
+        android:background="?android:selectableItemBackground" />
 
 </RelativeLayout>

@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +52,7 @@ public class ChatRoom extends AppCompatActivity {
     private DatabaseReference root;
     private MessageAdapter messageAdapter;
     private List<Message> mChat;
-    private ImageButton btn_send;
+    private ImageView btn_send;
     private DatabaseReference ref;
     private FirebaseUser fuser;
     private TextView userChat, statusReport;

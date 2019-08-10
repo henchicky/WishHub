@@ -16,10 +16,11 @@
         android:layout_toLeftOf="@id/sendButton"
         android:id="@+id/messageArea" />
 
-    <ImageButton
+    <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/ic_action_name"
+        android:src="@drawable/ic_action_name"
+        android:background="?android:selectableItemBackground"
         android:id="@+id/sendButton"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true" />

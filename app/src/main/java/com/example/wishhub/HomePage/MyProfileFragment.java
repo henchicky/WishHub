@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +52,7 @@ public class MyProfileFragment extends Fragment {
     private CircleImageView your_pic;
     private TextView accountname, joindate, bio, numOfPosts;
     private FirebaseUser firebaseUser;
-    private ImageButton chatButton;
+    private ImageView chatButton;
     private static final int IMAGE_REQUEST = 1;
     private Uri imageUri;
     private StorageTask uploadTask;
@@ -130,27 +131,10 @@ public class MyProfileFragment extends Fragment {
         });
 
         chatButton = view.findViewById(R.id.chatButton);
-        chatButton.setOnTouchListener(new View.OnTouchListener() {
+        chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        ImageButton view = (ImageButton) v;
-                        view.getBackground().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-                        v.invalidate();
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP:
-                        startActivity(new Intent(getContext(), Chat.class));
-                    case MotionEvent.ACTION_CANCEL: {
-                        ImageButton view = (ImageButton) v;
-                        view.getBackground().clearColorFilter();
-                        view.invalidate();
-                        break;
-                    }
-                }
-                return true;
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), Chat.class));
             }
         });
 

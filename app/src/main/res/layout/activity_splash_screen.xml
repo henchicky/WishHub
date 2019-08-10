@@ -43,14 +43,17 @@
         android:layout_marginBottom="58dp"
         android:layout_centerHorizontal="true"/>
 
-    <ImageView
-        android:layout_width="280dp"
-        android:layout_height="70dp"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/wishhub"
         android:layout_marginTop="70dp"
         android:layout_marginStart="25dp"
         android:visibility="visible"
         android:layout_centerHorizontal="true"
-        android:paddingRight="15dp"/>
+        android:text="WishHub "
+        android:textSize="70dp"
+        android:fontFamily="@font/quinzey_bold"
+        android:textColor="@android:color/black"/>
 
 </RelativeLayout>
