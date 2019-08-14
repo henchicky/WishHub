@@ -27,6 +27,7 @@ import com.example.wishhub.Authentication.EditProfile;
 import com.example.wishhub.Authentication.User;
 import com.example.wishhub.ChatSystem.Chat;
 import com.example.wishhub.R;
+import com.example.wishhub.SettingsPage;
 import com.example.wishhub.SplashScreen.SplashScreenActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,7 +49,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MyProfileFragment extends Fragment {
 
     private Button logout;
-    private FloatingActionButton editprofile ;
+    private ImageView setting;
     private CircleImageView your_pic;
     private TextView accountname, joindate, bio, numOfPosts;
     private FirebaseUser firebaseUser;
@@ -101,7 +102,6 @@ public class MyProfileFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 if (isAdded()){
                     //Load image if the fragment is currently added to its activity.
                     User user = dataSnapshot.getValue(User.class);
@@ -122,11 +122,11 @@ public class MyProfileFragment extends Fragment {
             }
         });
 
-        editprofile = view.findViewById(R.id.editPofile);
-        editprofile.setOnClickListener(new View.OnClickListener() {
+        setting = view.findViewById(R.id.setting_btn);
+        setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), EditProfile.class));
+                startActivity(new Intent(getContext(), SettingsPage.class));
             }
         });
 

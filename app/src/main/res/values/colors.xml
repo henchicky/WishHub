@@ -16,5 +16,6 @@
     <color name="pink_background">#FFA1CC</color>
     <color name="green_background">#91FFBD</color>
     <color name="purple_background">#DDA2FF</color>
+    <color name="light_blue">#C2D1FF</color>
 
 </resources>

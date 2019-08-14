@@ -45,6 +45,16 @@
                     android:layout_centerVertical="true"
                     android:padding="7dp"/>
 
+                <ImageView
+                    android:id="@+id/setting_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_toLeftOf="@+id/chatButton"
+                    android:src="@drawable/ic_setting"
+                    android:layout_centerVertical="true"
+                    android:background="?android:selectableItemBackground"
+                    android:padding="7dp"
+                    android:layout_marginRight="7dp"/>
 
             </RelativeLayout>
 
@@ -63,7 +73,7 @@
         android:background="@color/background_blue"
         android:id="@+id/rel_layout1">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <!--com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:tint="@android:color/white"
@@ -72,7 +82,7 @@
             android:src="@drawable/ic_edit"
             android:id="@+id/editPofile"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp"/-->
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
@@ -90,77 +100,79 @@
                 android:id="@+id/rel_layout2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_alignStart="@+id/card_view"
+                android:layout_alignTop="@+id/card_view"
                 android:padding="10dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/your_pic"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/userphoto"
-                    android:layout_margin="5dp"/>
+                    android:layout_margin="5dp"
+                    android:src="@drawable/userphoto" />
 
                 <TextView
                     android:id="@+id/account_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nexusing"
                     android:layout_below="@+id/your_pic"
-                    android:padding="5dp"
                     android:layout_marginStart="5dp"
-                    android:textStyle="bold"
+                    android:padding="5dp"
+                    android:text="Nexusing"
+                    android:textColor="@android:color/black"
                     android:textSize="20dp"
-                    android:textColor="@android:color/black"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/profilebio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/account_name"
-                    android:text="bio"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:text="bio" />
 
                 <TextView
                     android:id="@+id/joindate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Join Date"
                     android:layout_below="@+id/joindatechange"
-                    android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
-                    android:paddingLeft="5dp"/>
+                    android:layout_marginLeft="5dp"
+                    android:paddingLeft="5dp"
+                    android:text="Join Date" />
 
                 <TextView
                     android:id="@+id/joindatechange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="JOIN DATE"
                     android:layout_below="@+id/profilebio"
-                    android:padding="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="15dp"
-                    android:textColor="@android:color/black"/>
+                    android:padding="5dp"
+                    android:text="JOIN DATE"
+                    android:textColor="@android:color/black" />
 
 
                 <TextView
                     android:id="@+id/t5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12"
-                    android:layout_toRightOf="@+id/joindate"
+                    android:layout_below="@id/t4"
                     android:layout_marginLeft="60dp"
-                    android:layout_below="@id/t4"/>
+                    android:layout_toRightOf="@+id/joindate"
+                    android:text="12" />
 
                 <TextView
                     android:id="@+id/t4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NO. OF LISTINGS"
+                    android:layout_below="@id/profilebio"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
                     android:layout_toRightOf="@+id/joindate"
                     android:padding="5dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_below="@id/profilebio"
-                    android:layout_marginTop="15dp"
-                    android:textColor="@android:color/black"/>
+                    android:text="NO. OF LISTINGS"
+                    android:textColor="@android:color/black" />
 
 
             </RelativeLayout>

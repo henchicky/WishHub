@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutPage">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/windowBackground"
+            app:titleTextColor="@color/color2">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/backtoprofile"
+                    android:layout_width="37dp"
+                    android:layout_height="37dp"
+                    android:src="@drawable/ic_backbtn"
+                    android:background="?android:selectableItemBackground"
+                    android:padding="10dp"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="About"
+                    android:layout_toRightOf="@+id/backtoprofile"
+                    android:layout_marginLeft="35dp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WishHub "
+        android:textSize="45dp"
+        android:fontFamily="@font/quinzey_bold"
+        android:textColor="@android:color/black"
+        android:id="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/bar"/>
+
+    <TextView
+        android:id="@+id/contactus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact us at:"
+        android:layout_below="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:textColor="@android:color/black"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/githubpic"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/github"
+        android:layout_below="@+id/contactus"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="15dp"/>
+
+    <TextView
+        android:id="@+id/githublink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/githubpic"
+        android:text="https://github.com/henchicky/WishHub"
+        android:layout_toRightOf="@+id/githubpic"
+        android:layout_marginBottom="20dp"
+        android:autoLink="web"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/emailpic"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/email"
+        android:layout_below="@+id/githubpic"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="15dp"/>
+
+    <TextView
+        android:id="@+id/henemail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/emailpic"
+        android:text="hendrick.ling@u.nus.edu"
+        android:layout_toRightOf="@+id/emailpic"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:autoLink="email"/>
+
+    <TextView
+        android:id="@+id/changemail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/henemail"
+        android:text="liu.chang@u.nus.edu"
+        android:layout_toRightOf="@+id/emailpic"
+        android:layout_marginBottom="5dp"
+        android:autoLink="email"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/telegrampic"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/telegram"
+        android:layout_below="@+id/emailpic"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+
+    <TextView
+        android:id="@+id/telegramlink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/telegrampic"
+        android:text="https://t.me/hendrickling"
+        android:layout_toRightOf="@+id/emailpic"
+        android:layout_marginBottom="20dp"
+        android:background="?android:selectableItemBackground"
+        android:autoLink="web"/>
+
+</RelativeLayout>
