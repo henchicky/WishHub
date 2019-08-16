@@ -211,7 +211,7 @@ public class PostDetails extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), EditPostDetail.class);
                 intent.putExtra("edit_post_details", post);
                 startActivity(intent);
-                Toast.makeText(PostDetails.this, "Edit Post", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(PostDetails.this, "Edit Post", Toast.LENGTH_SHORT).show();
             }
         });
 
