@@ -79,7 +79,8 @@ public class TradeFragment extends Fragment {
     CurrencyEditText price;
     Switch switch_condition, switch_meetup, switch_delivery;
     boolean item_condition = true;
-    boolean item_meetup, item_delivery;
+    boolean item_meetup = true;
+    boolean item_delivery = true;
     TextInputLayout priceinput;
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
@@ -152,9 +153,9 @@ public class TradeFragment extends Fragment {
                     locationlayout.setVisibility(View.VISIBLE);
                     item_meetup = true;
                 } else {
-                    item_meetup = false;
                     switch_meetup.setText("Meet-up: Unavailable");
                     locationlayout.setVisibility(View.GONE);
+                    item_meetup = false;
                 }
             }
         });
@@ -311,6 +312,7 @@ public class TradeFragment extends Fragment {
                                     hashMap.put("location", location.getText().toString());
                                     hashMap.put("meetup", "" + item_meetup);
                                     hashMap.put("name", GetName.namevar);
+                                    hashMap.put("delivery", "" + item_delivery);
 
                                     reference.child(postid).setValue(hashMap);
                                     pd.dismiss();

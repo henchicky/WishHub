@@ -210,6 +210,19 @@
                     android:background="@drawable/button_file"
                     android:text="Save Changes"
                     android:textColor="@color/color3" />
+
+                <Button
+                    android:id="@+id/delete_post"
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/save_changes"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/btn_layout"
+                    android:text="Delete Listing"
+                    android:textColor="@color/color4" />
+
+
             </RelativeLayout>
         </RelativeLayout>
 
