@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.ablanco.zoomy.Zoomy;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.wishhub.Authentication.MainActivity;
 import com.example.wishhub.ChatSystem.ChatRoom;
 import com.example.wishhub.ProfileOthers;
 import com.example.wishhub.R;
@@ -49,6 +50,19 @@ public class PostDetails extends AppCompatActivity {
 
         Intent intent = getIntent();
         post = (Post) intent.getExtras().getSerializable("post_details");
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts").child(post.getPostid());
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                post = dataSnapshot.getValue(Post.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         heartWhite = findViewById(R.id.likebtn);
         heartRed = findViewById(R.id.likebtnred);
@@ -231,5 +245,21 @@ public class PostDetails extends AppCompatActivity {
         if (!firebaseUser.getUid().equals(post.getPublisher())) {
             editBtn.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        //this.onCreate(null);
+        /*finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);*/
+        Intent i = new Intent(PostDetails.this, PostDetails.class);
+        i.putExtra("post_details", post);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(i);
+        overridePendingTransition(0, 0);
     }
 }

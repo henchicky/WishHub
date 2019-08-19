@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.wishhub.Authentication.EditProfile;
+import com.example.wishhub.Authentication.MainActivity;
 import com.example.wishhub.Miscellaneous.CurrencyEditText;
 import com.example.wishhub.ProfileOthers;
 import com.example.wishhub.R;
@@ -203,7 +204,7 @@ public class EditPostDetail extends AppCompatActivity {
 
                     reference.child(post.getPostid()).updateChildren(hashMap);
                     //pd.dismiss();
-                    Toast.makeText(getApplicationContext(), "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                    finish();
                 } else {
                     ImageUri imageUriupload = new ImageUri(mImageUri);
                     final StorageReference fileReference = storageRef.child(System.currentTimeMillis()
@@ -256,7 +257,9 @@ public class EditPostDetail extends AppCompatActivity {
                             } else {
                                 // Handle failures
                             }
-                            finish();
+                            Intent i = new Intent(getApplicationContext(), PostDetails.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(i);
                         }
                     });
                 }
@@ -324,4 +327,5 @@ public class EditPostDetail extends AppCompatActivity {
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
+
 }
