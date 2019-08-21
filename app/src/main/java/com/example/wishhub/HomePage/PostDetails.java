@@ -114,7 +114,7 @@ public class PostDetails extends AppCompatActivity {
                 location.setText("Meet-up@ \n" + post.getLocation() + "\n \nDelivery & Mailing unavailable");
             }
         } else {
-            location.setText("Only Delivery and Mailing");
+            location.setText("Not Available for Meet-up.\n  \n" + "Only Delivery and Mailing");
         }
 
         Glide.with(getApplicationContext()).load(post.getPostimage())
@@ -133,7 +133,7 @@ public class PostDetails extends AppCompatActivity {
                     heartRed.setVisibility(View.VISIBLE);
                     heartWhite.setVisibility(View.GONE);
                     heartRed.setTag("liked");
-                } else{
+                } else {
                     heartRed.setVisibility(View.GONE);
                     heartWhite.setVisibility(View.VISIBLE);
                     heartRed.setTag("like");

@@ -12,9 +12,9 @@ public class Post implements Serializable {
     private String title;
     private String itemcondition;
     private String uploaddate;
-    private String name, location, meetup, delivery;
+    private String name, location, meetup, delivery, wish, sold;
 
-    public Post(String postid, String postimage, String description, String publisher, String price, String title, String itemcondition, String uploaddate, String name, String location, String meetup, String delivery) {
+    public Post(String postid, String postimage, String description, String publisher, String price, String title, String itemcondition, String uploaddate, String name, String location, String meetup, String delivery, String wish, String sold) {
         this.postid = postid;
         this.postimage = postimage;
         this.description = description;
@@ -27,6 +27,24 @@ public class Post implements Serializable {
         this.location = location;
         this.meetup = meetup;
         this.delivery = delivery;
+        this.wish = wish;
+        this.sold = sold;
+    }
+
+    public String getSold() {
+        return sold;
+    }
+
+    public void setSold(String sold) {
+        this.sold = sold;
+    }
+
+    public String getWish() {
+        return wish;
+    }
+
+    public void setWish(String wish) {
+        this.wish = wish;
     }
 
     public String getMeetup() {

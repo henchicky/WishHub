@@ -1,25 +1,41 @@
 package com.example.wishhub.HomePage;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.wishhub.ChatSystem.Chat;
 import com.example.wishhub.R;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +58,9 @@ public class AccountFragment extends Fragment {
     private List<String> followingList;
     ProgressBar progress_circular;
     ImageView chatButton;
+    ViewPager viewPager;
+    TabLayout tabLayout;
+    Toolbar toolbar;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -52,6 +71,7 @@ public class AccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
+        /*
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         progress_circular = view.findViewById(R.id.progress_circular);
         recyclerView = view.findViewById(R.id.recycler_view);
@@ -64,6 +84,9 @@ public class AccountFragment extends Fragment {
         postAdapter = new PostAdpapter(getContext(), postList, 0);
         recyclerView.setAdapter(postAdapter);
 
+        viewPager = view.findViewById(R.id.viewPager);
+        tabLayout = view. findViewById(R.id.tabLayout);
+
         chatButton = view.findViewById(R.id.chatButton);
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,54 +97,91 @@ public class AccountFragment extends Fragment {
 
         readPosts();
         //checkFollowing();
+        */
+
+        chatButton = view.findViewById(R.id.chatButton);
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), Chat.class));
+            }
+        });
+
+        viewPager = view.findViewById(R.id.viewPager);
+        tabLayout = view.findViewById(R.id.tabLayout);
+        toolbar = view.findViewById(R.id.toolbarrs);
+
         return view;
     }
 
-    private void checkFollowing(){
-        followingList = new ArrayList<>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Follow")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("following");
+    private int getColorForTab(int position) {
 
-        reference.addValueEventListener(new ValueEventListener() {
+        switch (position) {
+            /*case 0:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    return ContextCompat.getColor(getContext(), R.color.color1);
+                    //return getResources().getColor(R.color.colorPrimaryDark, getTheme());
+                return ContextCompat.getColor(getContext(), R.color.color1);*/
+            case 1:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    return ContextCompat.getColor(getContext(), R.color.pink_background);
+                    //return getResources().getColor(R.color.background_blue, getTheme());
+                return ContextCompat.getColor(getContext(), R.color.pink_background);
+            default:
+                return 0;
+        }
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        setUpViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                followingList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    followingList.add(snapshot.getKey());
-                }
-                readPosts();
+            public void onTabSelected(final TabLayout.Tab tab) {
+                int colorFrom = ((ColorDrawable) toolbar.getBackground()).getColor();
+                int colorTo = getColorForTab(tab.getPosition());
+
+                ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+
+                colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animator) {
+                        int color = (int) animator.getAnimatedValue();
+
+                        toolbar.setBackgroundColor(color);
+                        tabLayout.setBackgroundColor(color);
+                        viewPager.setBackgroundColor(color);
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            getActivity().getWindow().setStatusBarColor(color);
+                        }
+                    }
+
+                });
+                colorAnimation.start();
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onTabUnselected(TabLayout.Tab tab) {
 
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
             }
         });
     }
 
-    private void readPosts(){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+    private void setUpViewPager(ViewPager viewPager) {
+        SectionPagerAdapter adapter = new SectionPagerAdapter(getChildFragmentManager());
 
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                postList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Post post = snapshot.getValue(Post.class);
-                    //see all uploaded post, including your own
-                        postList.add(post);
-
-                }
-                postAdapter.notifyDataSetChanged();
-                progress_circular.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        adapter.addFragment(new ListingFragment(), "Listing");
+        adapter.addFragment(new WishFragment(), "Wishes");
+        viewPager.setAdapter(adapter);
     }
-
 }

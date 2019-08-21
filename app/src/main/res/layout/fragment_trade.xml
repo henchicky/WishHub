@@ -24,9 +24,10 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/title_listing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Describe your listing"
+                    android:text="Describe Your Wish"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -112,17 +113,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tt1"
-                    android:minHeight="100dp">
+                    android:minHeight="150dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/description"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="150dp"
                         android:gravity="bottom"
                         android:hint="Listing Description"
-                        android:inputType="textShortMessage|textMultiLine|textCapSentences"
-                        android:maxLength="5000"
-                        android:maxLines="10"
                         android:scrollbars="vertical"
                         android:singleLine="false" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -142,11 +140,125 @@
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Switch
+                <LinearLayout
+                    android:id="@+id/button_condition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/priceinput"
+                    android:layout_toLeftOf="@+id/button_meetup"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:paddingRight="25dp"
+                    android:paddingLeft="25dp">
+
+                    <com.github.zagum.switchicon.SwitchIconView
+                        android:id="@+id/switch_icon_condition"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:padding="8dp"
+                        app:si_animation_duration="500"
+                        app:si_disabled_alpha=".3"
+                        app:si_disabled_color="#b7b7b7"
+                        app:si_tint_color="#FFD700"
+                        app:si_enabled="true"
+                        app:si_no_dash="false"
+                        app:srcCompat="@drawable/ic_sparkle3"
+                        android:background="?android:selectableItemBackground"/>
+
+                    <TextView
+                        android:id="@+id/text_condition"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New"
+                        android:textColor="@android:color/black"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/button_meetup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/priceinput"
+                    android:layout_centerHorizontal="true"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:paddingRight="25dp"
+                    android:paddingLeft="25dp">
+
+                    <com.github.zagum.switchicon.SwitchIconView
+                        android:id="@+id/switch_icon_meetup"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:padding="8dp"
+                        android:background="?android:selectableItemBackground"
+                        app:si_animation_duration="500"
+                        app:si_disabled_alpha=".3"
+                        app:si_disabled_color="#b7b7b7"
+                        app:si_tint_color="#FF0000"
+                        app:si_enabled="true"
+                        app:si_no_dash="false"
+                        app:srcCompat="@drawable/ic_meetup"
+                        android:layout_below="@+id/priceinput" />
+
+                    <TextView
+                        android:id="@+id/text_meetup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Meetup"
+                        android:textColor="@android:color/black"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/button_delivery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/priceinput"
+                    android:layout_toRightOf="@+id/button_meetup"
+                    android:layout_centerHorizontal="true"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:paddingRight="25dp"
+                    android:paddingLeft="25dp">
+
+                    <com.github.zagum.switchicon.SwitchIconView
+                        android:id="@+id/switch_icon_delivery"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:padding="8dp"
+                        app:si_animation_duration="500"
+                        app:si_disabled_alpha=".3"
+                        app:si_disabled_color="#b7b7b7"
+                        app:si_tint_color="#00C853"
+                        app:si_enabled="true"
+                        app:si_no_dash="false"
+                        app:srcCompat="@drawable/ic_delivery"
+                        android:layout_below="@+id/button_condition"
+                        android:background="?android:selectableItemBackground"/>
+
+                    <TextView
+                        android:id="@+id/text_delivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Delivery"
+                        android:textColor="@android:color/black"/>
+                </LinearLayout>
+
+                <!--Switch
+                    android:layout_below="@+id/button_condition"
                     android:id="@+id/switch1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/priceinput"
                     android:layout_marginTop="15dp"
                     android:checked="true"
                     android:showText="false"
@@ -163,13 +275,13 @@
                     android:checked="true"
                     android:showText="false"
                     android:splitTrack="false"
-                    android:text="Meet-up: Available for meet-up" />
+                    android:text="Meet-up: Available for meet-up" /-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tt5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/switch2"
+                    android:layout_below="@+id/button_delivery"
                     android:visibility="visible">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -177,12 +289,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:hint="Location"
+                        android:hint="Meetup location"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-
-                <Switch
+                <!--Switch
                     android:id="@+id/switch3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -191,13 +302,13 @@
                     android:checked="true"
                     android:showText="false"
                     android:splitTrack="false"
-                    android:text="Mailing and Delivery: Yes" />
+                    android:text="Mailing and Delivery: Yes" /-->
 
                 <Button
                     android:id="@+id/post"
                     android:layout_width="330dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/switch3"
+                    android:layout_below="@+id/tt5"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/button_file"
@@ -205,13 +316,11 @@
                     android:textColor="@color/color3" />
             </RelativeLayout>
         </RelativeLayout>
-
     </androidx.core.widget.NestedScrollView>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         tools:context=".Authentication.MainActivity"
         android:background="@android:color/transparent"
         android:layout_below="@+id/barrs">
@@ -223,14 +332,15 @@
         android:background="@android:color/transparent"
         app:behavior_hideable="false"
         app:behavior_peekHeight="70dp"
-        android:id="@+id/bottom_sheet_register">
+        android:id="@+id/bottom_sheet_register"
+        app:layout_anchorGravity="center">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:cardCornerRadius="15dp"
             android:elevation="@dimen/cardview_compat_inset_shadow"
-            app:cardBackgroundColor="@android:color/white"
+            app:cardBackgroundColor="@android:color/holo_green_dark"
             app:cardUseCompatPadding="true">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -262,14 +372,20 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="5dp"/>
 
-                <Button
-                    android:id="@+id/signUpBtn"
-                    android:layout_width="330dp"
+                <com.polyak.iconswitch.IconSwitch
+                    app:isw_icon_size="30dp"
+                    android:id="@+id/icon_switch"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:isw_icon_left="@drawable/wish"
+                    app:isw_icon_right="@drawable/ic_sell"
                     android:layout_gravity="center"
-                    android:background="@drawable/reg_btn_style"
-                    android:text="SIGN UP"
-                    android:textColor="#ffffff" />
+                    app:isw_active_tint_icon_left="#fff"
+                    app:isw_active_tint_icon_right="#fff"
+                    app:isw_thumb_color_left="#C51162"
+                    app:isw_thumb_color_right="#00BFA5"
+                    app:isw_inactive_tint_icon_left="#D10000"
+                    app:isw_inactive_tint_icon_right="#D10000"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

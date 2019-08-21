@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -74,6 +76,9 @@ public class MyProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_myprofile, container, false);
+
+        Window window = getActivity().getWindow();
+        window.setStatusBarColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
 
         recyclerView = view.findViewById(R.id.recycler_view_profile_page);
         recyclerView.setHasFixedSize(true);

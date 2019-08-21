@@ -27,6 +27,7 @@ import com.example.wishhub.Miscellaneous.CurrencyEditText;
 import com.example.wishhub.ProfileOthers;
 import com.example.wishhub.R;
 import com.example.wishhub.SplashScreen.SplashScreenActivity;
+import com.github.zagum.switchicon.SwitchIconView;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,6 +40,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.polyak.iconswitch.IconSwitch;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.HashMap;
@@ -63,6 +65,8 @@ public class EditPostDetail extends AppCompatActivity {
     boolean item_meetup = true;
     boolean item_delivery = true;
     boolean image_untouched = true;
+    private SwitchIconView icon_condition, icon_meetup, icon_delivery;
+    private TextView text_delivery, text_meetup, text_condition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +85,9 @@ public class EditPostDetail extends AppCompatActivity {
             }
         });
 
-        delivery = findViewById(R.id.switch3);
+        /*delivery = findViewById(R.id.switch3);
         meetup = findViewById(R.id.switch2);
-        itemcondition = findViewById(R.id.switch1);
+        itemcondition = findViewById(R.id.switch1);*/
         title = findViewById(R.id.title);
         description = findViewById(R.id.description);
         price = findViewById(R.id.price);
@@ -96,6 +100,7 @@ public class EditPostDetail extends AppCompatActivity {
         Log.d(TAG, "onCreate: " + post.getTitle());
 
 
+        /*
         if (post.getDelivery().equals("true")) {
             delivery.setChecked(true);
             item_delivery = true;
@@ -155,6 +160,89 @@ public class EditPostDetail extends AppCompatActivity {
                     meetup.setText("Meet-up: Unavailable");
                     locationlayout.setVisibility(View.GONE);
                     item_condition = false;
+                }
+            }
+        });*/
+
+        icon_condition = findViewById(R.id.switch_icon_condition);
+        text_condition = findViewById(R.id.text_condition);
+        if (post.getItemcondition().equals("true")) {
+            icon_condition.setIconEnabled(true);
+            text_condition.setText("New");
+            item_condition = true;
+        } else {
+            icon_condition.setIconEnabled(false);
+            text_condition.setText("Used");
+            item_condition = false;
+        }
+
+        icon_condition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                icon_condition.switchState();
+                if (icon_condition.isIconEnabled()) {
+                    text_condition.setText("New");
+                    item_condition = true;
+                } else {
+                    text_condition.setText("Used");
+                    item_condition = false;
+                }
+            }
+        });
+
+        icon_meetup = findViewById(R.id.switch_icon_meetup);
+        text_meetup = findViewById(R.id.text_meetup);
+        if (post.getMeetup().equals("true")) {
+            icon_meetup.setIconEnabled(true);
+            text_meetup.setText("Meetup");
+            locationlayout.setVisibility(View.VISIBLE);
+            location.setText(post.getLocation());
+            item_meetup = true;
+        } else {
+            icon_meetup.setIconEnabled(false);
+            text_meetup.setText("N.A.");
+            locationlayout.setVisibility(View.GONE);
+            item_meetup = false;
+        }
+
+        icon_meetup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                icon_meetup.switchState();
+                if (icon_meetup.isIconEnabled()) {
+                    text_meetup.setText("Meetup");
+                    item_meetup = true;
+                    locationlayout.setVisibility(View.VISIBLE);
+                } else {
+                    text_meetup.setText("N.A.");
+                    item_meetup = false;
+                    locationlayout.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        icon_delivery = findViewById(R.id.switch_icon_delivery);
+        text_delivery = findViewById(R.id.text_delivery);
+        if (post.getDelivery().equals("true")) {
+            icon_delivery.setIconEnabled(true);
+            text_delivery.setText("Delivery");
+            item_delivery = true;
+        } else {
+            icon_delivery.setIconEnabled(false);
+            text_delivery.setText("N.A.");
+            item_delivery = false;
+        }
+
+        icon_delivery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                icon_delivery.switchState();
+                if (icon_delivery.isIconEnabled()) {
+                    text_delivery.setText("Delivery");
+                    item_delivery = true;
+                } else {
+                    text_delivery.setText("N.A.");
+                    item_delivery = false;
                 }
             }
         });

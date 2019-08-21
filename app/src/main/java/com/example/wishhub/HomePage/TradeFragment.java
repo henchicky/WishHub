@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -28,11 +31,13 @@ import android.widget.Toast;
 import com.example.wishhub.Authentication.User;
 import com.example.wishhub.Miscellaneous.CurrencyEditText;
 import com.example.wishhub.R;
+import com.github.zagum.switchicon.SwitchIconView;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,6 +51,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.polyak.iconswitch.IconSwitch;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
@@ -67,7 +73,7 @@ public class TradeFragment extends Fragment {
     private TextView uploadmulitpleimages;
     private Uri mImageUri, tempUri;
     private ImageButton deletepic;
-    private TextView textty;
+    private TextView textty, title_listing;
     private TextInputLayout priceInputLayout, titleinputlayout, descinputlayout, locationlayout;
     ImageView hideimage;
 
@@ -81,6 +87,7 @@ public class TradeFragment extends Fragment {
     boolean item_condition = true;
     boolean item_meetup = true;
     boolean item_delivery = true;
+    boolean item_wish = true;
     TextInputLayout priceinput;
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
@@ -88,6 +95,10 @@ public class TradeFragment extends Fragment {
     private static List<String> listOfUrl;
     private FirebaseUser firebaseUser;
     private DatabaseReference reference, secondref;
+    private SwitchIconView icon_condition, icon_meetup, icon_delivery;
+    private TextView text_delivery, text_meetup, text_condition;
+    private IconSwitch iconSwitch;
+    TabLayout toolbar;
 
     public TradeFragment() {
         // Required empty public constructor
@@ -98,6 +109,9 @@ public class TradeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_trade, container, false);
 
         createList();
+        Window window = getActivity().getWindow();
+        window.setStatusBarColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
+
         textty = view.findViewById(R.id.text_upload);
         deletepic = view.findViewById(R.id.delete_image);
         mRecyclerView = view.findViewById(R.id.recyclerView_hor);
@@ -131,6 +145,7 @@ public class TradeFragment extends Fragment {
         descinputlayout = view.findViewById(R.id.tt2);
         locationlayout = view.findViewById(R.id.tt5);
         location = view.findViewById(R.id.locationprod);
+        /*
         switch_condition = view.findViewById(R.id.switch1);
         switch_condition.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -172,7 +187,7 @@ public class TradeFragment extends Fragment {
                     switch_delivery.setText("Mailing and Delivery: No");
                 }
             }
-        });
+        });*/
 
         calendar = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -190,6 +205,72 @@ public class TradeFragment extends Fragment {
 
         listOfUrl = new ArrayList<>();
 
+        icon_condition = view.findViewById(R.id.switch_icon_condition);
+        text_condition = view.findViewById(R.id.text_condition);
+        icon_condition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                icon_condition.switchState();
+                if (icon_condition.isIconEnabled()) {
+                    text_condition.setText("New");
+                    item_condition = true;
+                } else {
+                    text_condition.setText("Used");
+                    item_condition = false;
+                }
+            }
+        });
+
+        icon_meetup = view.findViewById(R.id.switch_icon_meetup);
+        text_meetup = view.findViewById(R.id.text_meetup);
+        icon_meetup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                icon_meetup.switchState();
+                if (icon_meetup.isIconEnabled()) {
+                    text_meetup.setText("Meetup");
+                    item_meetup = true;
+                    locationlayout.setVisibility(View.VISIBLE);
+                } else {
+                    text_meetup.setText("N.A.");
+                    item_meetup = false;
+                    locationlayout.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        icon_delivery = view.findViewById(R.id.switch_icon_delivery);
+        text_delivery = view.findViewById(R.id.text_delivery);
+        icon_delivery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                icon_delivery.switchState();
+                if (icon_delivery.isIconEnabled()) {
+                    text_delivery.setText("Delivery");
+                    item_delivery = true;
+                } else {
+                    text_delivery.setText("N.A.");
+                    item_delivery = false;
+                }
+            }
+        });
+
+        iconSwitch = view.findViewById(R.id.icon_switch);
+        title_listing = view.findViewById(R.id.title_listing);
+        iconSwitch.setCheckedChangeListener(new IconSwitch.CheckedChangeListener() {
+            @Override
+            public void onCheckChanged(IconSwitch.Checked current) {
+                if (current.equals(IconSwitch.Checked.LEFT)) {
+                    Toast.makeText(getContext(), "Left toggle", Toast.LENGTH_SHORT).show();
+                    title_listing.setText("Describe Your Wish");
+                    item_wish = true;
+                } else {
+                    Toast.makeText(getContext(), "Right toggle", Toast.LENGTH_SHORT).show();
+                    title_listing.setText("Describe Your Listing");
+                    item_wish = false;
+                }
+            }
+        });
         return view;
     }
 
@@ -313,6 +394,8 @@ public class TradeFragment extends Fragment {
                                     hashMap.put("meetup", "" + item_meetup);
                                     hashMap.put("name", GetName.namevar);
                                     hashMap.put("delivery", "" + item_delivery);
+                                    hashMap.put("wish", item_wish);
+                                    hashMap.put("sold", true);
 
                                     reference.child(postid).setValue(hashMap);
                                     pd.dismiss();

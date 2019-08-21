@@ -64,7 +64,7 @@ dependencies {
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
 
     //Android-SwitchIcon
-    //implementation 'com.github.zagum:Android-SwitchIcon:1.4.0'
+    implementation 'com.github.zagum:Android-SwitchIcon:1.4.0'
 
     //IconSwitch
     implementation 'com.polyak:icon-switch:1.0.0'

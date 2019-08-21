@@ -184,7 +184,8 @@
                         android:textColor="@android:color/black"
                         android:layout_alignBottom="@+id/imagelocation"
                         android:layout_marginLeft="15dp"
-                        android:layout_toRightOf="@+id/imagelocation"/>
+                        android:layout_toRightOf="@+id/imagelocation"
+                        android:layout_marginBottom="5dp"/>
 
                     <TextView
                         android:id="@+id/locationprod"
