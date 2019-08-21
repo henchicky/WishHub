@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/barrs"
-        android:layout_marginBottom="65dp"
+        android:layout_marginBottom="80dp"
         android:scrollbars="vertical"
         android:scrollbarStyle="insideOverlay">
 
@@ -198,7 +198,6 @@
                         android:id="@+id/switch_icon_meetup"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:padding="8dp"
                         android:background="?android:selectableItemBackground"
                         app:si_animation_duration="500"
                         app:si_disabled_alpha=".3"
@@ -215,6 +214,7 @@
                         android:layout_height="wrap_content"
                         android:text="Meetup"
                         android:textColor="@android:color/black"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -340,7 +340,7 @@
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         android:background="@android:color/transparent"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="65dp"
+        app:behavior_peekHeight="80dp"
         android:id="@+id/bottom_sheet_register">
 
             <RelativeLayout
@@ -350,38 +350,16 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="16dp"
-                android:background="@color/colorPrimaryDark">
+                android:background="@color/light_blue">
 
                 <ImageView
                     android:id="@+id/image_switch_left"
                     android:layout_width="25dp"
                     android:layout_height="40dp"
                     android:src="@drawable/ic_up"
-                    android:layout_toLeftOf="@+id/bottom_wish"
+                    android:layout_toLeftOf="@+id/icon_switch"
                     android:layout_marginTop="15dp"
-                    android:layout_marginRight="20dp"/>
-
-                <TextView
-                    android:id="@+id/bottom_wish"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Make a Wish"
-                    android:textStyle="bold"
-                    android:textSize="35dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_centerHorizontal="true"
-                    android:padding="5dp"/>
-
-                <ImageView
-                    android:id="@+id/image_switch_right"
-                    android:layout_width="25dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_up"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_toRightOf="@+id/bottom_wish"/>
+                    android:layout_marginRight="30dp"/>
 
                 <com.polyak.iconswitch.IconSwitch
                     app:isw_default_selection="right"
@@ -395,19 +373,40 @@
                     app:isw_active_tint_icon_left="#fff"
                     app:isw_active_tint_icon_right="#fff"
                     app:isw_thumb_color_left="#C51162"
-                    app:isw_thumb_color_right="#00BFA5"
+                    app:isw_thumb_color_right="#00AADF"
                     app:isw_inactive_tint_icon_left="#D10000"
                     app:isw_inactive_tint_icon_right="#D10000"
-                    android:layout_below="@+id/bottom_wish"
-                    android:layout_centerHorizontal="true"/>
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"/>
+
+                <ImageView
+                    android:id="@+id/image_switch_right"
+                    android:layout_width="25dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_up"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@+id/icon_switch"/>
 
                 <TextView
-                    android:layout_marginTop="10dp"
+                    android:id="@+id/bottom_wish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Make a Wish"
+                    android:textStyle="bold"
+                    android:textSize="35dp"
+                    android:layout_gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:padding="5dp"
+                    android:layout_below="@+id/icon_switch"/>
+
+                <TextView
                     android:id="@+id/text_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Clear your clutter! Sell your beloved items.\nEarn some cash along the way! Others will benefit from your items.\nOnes rubbish is another's treasure!"
-                    android:layout_below="@+id/icon_switch"
+                    android:layout_below="@+id/bottom_wish"
                     android:gravity="center"/>
 
             </RelativeLayout>

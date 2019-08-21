@@ -246,7 +246,7 @@ public class TradeFragment extends Fragment {
                     title.setHint("Wish Title");
                     description.setHint("Wish Description");
                     bottom_wish.setText("Make a Wish!");
-                    text_description.setText("Can't find your desired item anywhere? \nRequest for you personalised items! \nGet quotes and compare the best prices before making your decision.");
+                    text_description.setText("Can't find your desired item anywhere? \nRequest for your personalised items! \nGet quotes and compare the best prices before making your decision.");
                     item_wish = true;
                     relativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.pink_background));
                     //sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -257,9 +257,9 @@ public class TradeFragment extends Fragment {
                     title_listing.setText("Describe Your Listing");
                     description.setHint("Listing Description");
                     title.setHint("Listing Title");
-                    bottom_wish.setText("List your items!");
-                    relativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-                    text_description.setText("Clear your clutter! Sell your beloved items.\nEarn some cash along the way! Others will benefit from your items.\nOnes rubbish is another's treasure!");
+                    bottom_wish.setText("Sell your items!");
+                    relativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.light_blue));
+                    text_description.setText("Clear your clutter! Sell your beloved items.\nEarn some cash along the way! Others will benefit from your items.\nYour clutter is another's treasure!");
                     item_wish = false;
                     post.setText("Post Listing");
 
@@ -282,8 +282,10 @@ public class TradeFragment extends Fragment {
             @Override
             public void onSlide(@NonNull View view, float v) {
                 if (isAdded()) {
+                    //transitionBottomSheetBackgroundColor(v);
                     animateBottomSheetArrows(v);
                 }
+
             }
         });
 
@@ -303,6 +305,28 @@ public class TradeFragment extends Fragment {
         // Animate clockwise
         right_arrow.setRotation(1 * 180);
         return view;
+    }
+
+    private void transitionBottomSheetBackgroundColor(float slideOffset) {
+        int colorFrom = ContextCompat.getColor(getContext(), R.color.light_blue);
+        int colorTo = ContextCompat.getColor(getContext(), R.color.background_blue);
+        relativeLayout.setBackgroundColor(interpolateColor(slideOffset,
+                colorFrom, colorTo));
+    }
+
+    private int interpolateColor(float fraction, int startValue, int endValue) {
+        int startA = (startValue >> 24) & 0xff;
+        int startR = (startValue >> 16) & 0xff;
+        int startG = (startValue >> 8) & 0xff;
+        int startB = startValue & 0xff;
+        int endA = (endValue >> 24) & 0xff;
+        int endR = (endValue >> 16) & 0xff;
+        int endG = (endValue >> 8) & 0xff;
+        int endB = endValue & 0xff;
+        return ((startA + (int) (fraction * (endA - startA))) << 24) |
+                ((startR + (int) (fraction * (endR - startR))) << 16) |
+                ((startG + (int) (fraction * (endG - startG))) << 8) |
+                ((startB + (int) (fraction * (endB - startB))));
     }
 
     private void animateBottomSheetArrows(float slideOffset) {
