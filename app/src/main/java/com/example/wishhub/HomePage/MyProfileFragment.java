@@ -78,7 +78,7 @@ public class MyProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_myprofile, container, false);
 
         Window window = getActivity().getWindow();
-        window.setStatusBarColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
+        window.setStatusBarColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
 
         recyclerView = view.findViewById(R.id.recycler_view_profile_page);
         recyclerView.setHasFixedSize(true);

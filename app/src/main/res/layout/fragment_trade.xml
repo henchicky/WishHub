@@ -27,7 +27,7 @@
                     android:id="@+id/title_listing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Describe Your Wish"
+                    android:text="Describe Your Listing"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -53,7 +53,10 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/barrs">
+        android:layout_below="@+id/barrs"
+        android:layout_marginBottom="65dp"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="insideOverlay">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -104,7 +107,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:hint="Listing Title"
+
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,7 +123,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:gravity="bottom"
-                        android:hint="Listing Description"
                         android:scrollbars="vertical"
                         android:singleLine="false" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -325,54 +327,64 @@
         android:background="@android:color/transparent"
         android:layout_below="@+id/barrs">
 
+        <View
+            android:id="@+id/view_block"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#BF000000">
+        </View>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         android:background="@android:color/transparent"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="70dp"
-        android:id="@+id/bottom_sheet_register"
-        app:layout_anchorGravity="center">
+        app:behavior_peekHeight="65dp"
+        android:id="@+id/bottom_sheet_register">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cardCornerRadius="15dp"
-            android:elevation="@dimen/cardview_compat_inset_shadow"
-            app:cardBackgroundColor="@android:color/holo_green_dark"
-            app:cardUseCompatPadding="true">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <RelativeLayout
+                android:id="@+id/relat_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="16dp"
-                android:orientation="vertical">
+                android:background="@color/colorPrimaryDark">
 
                 <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="-2dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/ic_swipe_down"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="-5dp"/>
+                    android:id="@+id/image_switch_left"
+                    android:layout_width="25dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_up"
+                    android:layout_toLeftOf="@+id/bottom_wish"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"/>
 
                 <TextView
+                    android:id="@+id/bottom_wish"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Make a Wish"
                     android:textStyle="bold"
-                    android:textSize="40dp"
+                    android:textSize="35dp"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginTop="5dp"/>
+                    android:layout_marginTop="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:padding="5dp"/>
+
+                <ImageView
+                    android:id="@+id/image_switch_right"
+                    android:layout_width="25dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_up"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/bottom_wish"/>
 
                 <com.polyak.iconswitch.IconSwitch
+                    app:isw_default_selection="right"
                     app:isw_icon_size="30dp"
                     android:id="@+id/icon_switch"
                     android:layout_width="wrap_content"
@@ -385,11 +397,21 @@
                     app:isw_thumb_color_left="#C51162"
                     app:isw_thumb_color_right="#00BFA5"
                     app:isw_inactive_tint_icon_left="#D10000"
-                    app:isw_inactive_tint_icon_right="#D10000"/>
+                    app:isw_inactive_tint_icon_right="#D10000"
+                    android:layout_below="@+id/bottom_wish"
+                    android:layout_centerHorizontal="true"/>
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/text_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Clear your clutter! Sell your beloved items.\nEarn some cash along the way! Others will benefit from your items.\nOnes rubbish is another's treasure!"
+                    android:layout_below="@+id/icon_switch"
+                    android:gravity="center"/>
 
-        </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
     </FrameLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

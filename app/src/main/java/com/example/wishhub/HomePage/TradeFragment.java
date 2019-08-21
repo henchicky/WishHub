@@ -3,6 +3,7 @@ package com.example.wishhub.HomePage;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -22,8 +24,10 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +41,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -70,10 +75,11 @@ public class TradeFragment extends Fragment {
     private ArrayList<ImageUri> imageURLlist;
     private RecyclerView mRecyclerView;
     private ImageAdapter mAdapter;
-    private TextView uploadmulitpleimages;
+    private TextView uploadmulitpleimages, text_description;
     private Uri mImageUri, tempUri;
     private ImageButton deletepic;
-    private TextView textty, title_listing;
+    private TextView textty, title_listing, bottom_wish;
+    private TextInputEditText title_text, description_text;
     private TextInputLayout priceInputLayout, titleinputlayout, descinputlayout, locationlayout;
     ImageView hideimage;
 
@@ -99,6 +105,11 @@ public class TradeFragment extends Fragment {
     private TextView text_delivery, text_meetup, text_condition;
     private IconSwitch iconSwitch;
     TabLayout toolbar;
+    private FrameLayout frameLayout;
+    private BottomSheetBehavior sheetBehavior;
+    private View view_block;
+    private ImageView left_arrow, right_arrow;
+    private RelativeLayout relativeLayout;
 
     public TradeFragment() {
         // Required empty public constructor
@@ -145,49 +156,6 @@ public class TradeFragment extends Fragment {
         descinputlayout = view.findViewById(R.id.tt2);
         locationlayout = view.findViewById(R.id.tt5);
         location = view.findViewById(R.id.locationprod);
-        /*
-        switch_condition = view.findViewById(R.id.switch1);
-        switch_condition.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    switch_condition.setText("Listing Condition: Item is new!");
-                    item_condition = true;
-                } else {
-                    switch_condition.setText("Listing Condition: Item is used!");
-                    item_condition = false;
-                }
-            }
-        });
-        switch_meetup = view.findViewById(R.id.switch2);
-        switch_meetup.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    switch_meetup.setText("Meet-up: Available for meet-up");
-                    locationlayout.setVisibility(View.VISIBLE);
-                    item_meetup = true;
-                } else {
-                    switch_meetup.setText("Meet-up: Unavailable");
-                    locationlayout.setVisibility(View.GONE);
-                    item_meetup = false;
-                }
-            }
-        });
-
-        switch_delivery = view.findViewById(R.id.switch3);
-        switch_delivery.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    item_delivery = true;
-                    switch_delivery.setText("Mailing and Delivery: Yes");
-                } else {
-                    item_delivery = false;
-                    switch_delivery.setText("Mailing and Delivery: No");
-                }
-            }
-        });*/
 
         calendar = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -255,23 +223,93 @@ public class TradeFragment extends Fragment {
             }
         });
 
+        bottom_wish = view.findViewById(R.id.bottom_wish);
         iconSwitch = view.findViewById(R.id.icon_switch);
         title_listing = view.findViewById(R.id.title_listing);
+        bottom_wish.setText("List your items!");
+        title.setHint("Listing Title");
+        description.setHint("Listing Description");
+        view_block = view.findViewById(R.id.view_block);
+
+        frameLayout = view.findViewById(R.id.bottom_sheet_register);
+        sheetBehavior = BottomSheetBehavior.from(frameLayout);
+        sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        relativeLayout = view.findViewById(R.id.relat_layout);
+        text_description = view.findViewById(R.id.text_description);
+
         iconSwitch.setCheckedChangeListener(new IconSwitch.CheckedChangeListener() {
             @Override
             public void onCheckChanged(IconSwitch.Checked current) {
                 if (current.equals(IconSwitch.Checked.LEFT)) {
-                    Toast.makeText(getContext(), "Left toggle", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Left toggle", Toast.LENGTH_SHORT).show();
                     title_listing.setText("Describe Your Wish");
+                    title.setHint("Wish Title");
+                    description.setHint("Wish Description");
+                    bottom_wish.setText("Make a Wish!");
+                    text_description.setText("Can't find your desired item anywhere? \nRequest for you personalised items! \nGet quotes and compare the best prices before making your decision.");
                     item_wish = true;
+                    relativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.pink_background));
+                    //sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    //view_block.setVisibility(View.GONE);
+                    post.setText("Make a Wish");
                 } else {
-                    Toast.makeText(getContext(), "Right toggle", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Right toggle", Toast.LENGTH_SHORT).show();
                     title_listing.setText("Describe Your Listing");
+                    description.setHint("Listing Description");
+                    title.setHint("Listing Title");
+                    bottom_wish.setText("List your items!");
+                    relativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+                    text_description.setText("Clear your clutter! Sell your beloved items.\nEarn some cash along the way! Others will benefit from your items.\nOnes rubbish is another's treasure!");
                     item_wish = false;
+                    post.setText("Post Listing");
+
+                    //sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    //view_block.setVisibility(View.GONE);
                 }
             }
         });
+
+        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View view, int i) {
+                if (i == BottomSheetBehavior.STATE_EXPANDED) {
+                    view_block.setVisibility(View.VISIBLE);
+                } else {
+                    view_block.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View view, float v) {
+                if (isAdded()) {
+                    animateBottomSheetArrows(v);
+                }
+            }
+        });
+
+        view_block.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                view_block.setVisibility(View.GONE);
+                sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
+
+        left_arrow = view.findViewById(R.id.image_switch_left);
+        right_arrow = view.findViewById(R.id.image_switch_right);
+
+        // Animate counter-clockwise
+        left_arrow.setRotation(1 * -180);
+        // Animate clockwise
+        right_arrow.setRotation(1 * 180);
         return view;
+    }
+
+    private void animateBottomSheetArrows(float slideOffset) {
+        // Animate counter-clockwise
+        left_arrow.setRotation(slideOffset * -180);
+        // Animate clockwise
+        right_arrow.setRotation(slideOffset * 180);
     }
 
     private String getFileExtension(Uri uri){
