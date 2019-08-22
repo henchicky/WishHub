@@ -66,6 +66,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import pl.droidsonroids.gif.GifImageView;
+
 import static android.app.Activity.RESULT_OK;
 
 
@@ -236,6 +238,7 @@ public class TradeFragment extends Fragment {
         sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         relativeLayout = view.findViewById(R.id.relat_layout);
         text_description = view.findViewById(R.id.text_description);
+        final GifImageView gifImageView = view.findViewById(R.id.gif);
 
         iconSwitch.setCheckedChangeListener(new IconSwitch.CheckedChangeListener() {
             @Override
@@ -252,6 +255,7 @@ public class TradeFragment extends Fragment {
                     //sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                     //view_block.setVisibility(View.GONE);
                     post.setText("Make a Wish");
+                    gifImageView.setImageResource(R.drawable.wish_animate);
                 } else {
                     //Toast.makeText(getContext(), "Right toggle", Toast.LENGTH_SHORT).show();
                     title_listing.setText("Describe Your Listing");
@@ -262,6 +266,7 @@ public class TradeFragment extends Fragment {
                     text_description.setText("Clear your clutter! Sell your beloved items.\nEarn some cash along the way! Others will benefit from your items.\nYour clutter is another's treasure!");
                     item_wish = false;
                     post.setText("Post Listing");
+                    gifImageView.setImageResource(R.drawable.money);
 
                     //sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                     //view_block.setVisibility(View.GONE);
@@ -456,7 +461,7 @@ public class TradeFragment extends Fragment {
                                     hashMap.put("meetup", "" + item_meetup);
                                     hashMap.put("name", GetName.namevar);
                                     hashMap.put("delivery", "" + item_delivery);
-                                    hashMap.put("wish", item_wish);
+                                    hashMap.put("wish_animate", item_wish);
                                     hashMap.put("sold", true);
 
                                     reference.child(postid).setValue(hashMap);

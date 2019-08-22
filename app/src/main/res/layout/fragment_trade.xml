@@ -407,7 +407,17 @@
                     android:layout_height="wrap_content"
                     android:text="Clear your clutter! Sell your beloved items.\nEarn some cash along the way! Others will benefit from your items.\nOnes rubbish is another's treasure!"
                     android:layout_below="@+id/bottom_wish"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:layout_marginBottom="10dp"/>
+
+                <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/gif"
+                    android:padding="15dp"
+                    android:layout_width="450dp"
+                    android:layout_height="278dp"
+                    android:src="@drawable/money"
+                    android:layout_below="@+id/text_description"
+                    android:layout_centerHorizontal="true"/>
 
             </RelativeLayout>
 
